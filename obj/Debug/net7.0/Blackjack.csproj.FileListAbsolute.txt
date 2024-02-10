@@ -1,0 +1,15 @@
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/bin/Debug/net7.0/Blackjack
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/bin/Debug/net7.0/Blackjack.deps.json
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/bin/Debug/net7.0/Blackjack.runtimeconfig.json
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/bin/Debug/net7.0/Blackjack.dll
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/bin/Debug/net7.0/Blackjack.pdb
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.csproj.AssemblyReference.cache
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.AssemblyInfoInputs.cache
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.AssemblyInfo.cs
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.csproj.CoreCompileInputs.cache
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.dll
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/refint/Blackjack.dll
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.pdb
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/Blackjack.genruntimeconfig.cache
+/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/Debug/net7.0/ref/Blackjack.dll
