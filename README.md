@@ -11,3 +11,6 @@
 # Teknolojiler
 - C#
 - .NET Core
+
+- <img width="415" alt="image" src="https://github.com/YigitKa/blackjack/assets/21237298/9565390e-0ce1-4171-8e64-5dab0263bba7">
+
