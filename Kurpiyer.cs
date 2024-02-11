@@ -2,6 +2,14 @@
 
 public class Kurpiyer
 {
+    public class KartCekildiEventArgs : EventArgs
+    {
+        public Kart CekilenKart { get; set; }
+    }
+
+    public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
+    public delegate void KartCekildiEventHandler(object sender, KartCekildiEventArgs e);
+
     public List<Kart> Kartlar { get; set; }
     public int Puan { get; private set; }
 
@@ -20,7 +28,7 @@ public class Kurpiyer
             Kart kart = Kart.RastgeleCek(deste);
             Kartlar.Add(kart);
 
-            KartCekildi?.Invoke(this, EventArgs.Empty);
+            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
         }
 
         PuanHesapla();
@@ -30,7 +38,7 @@ public class Kurpiyer
             Kart kart = Kart.RastgeleCek(deste);
             Kartlar.Add(kart);
 
-            KartCekildi?.Invoke(this, EventArgs.Empty);
+            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
 
             PuanHesapla();
         }

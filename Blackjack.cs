@@ -25,10 +25,6 @@ namespace Blackjack
     public class Blackjack
     {
         public event OyunBasladiEventHandler OyunBasladi;
-        public event OyuncuKartCekildiEventHandler OyuncuKartCekildi;
-        public event OyuncuPuanHesaplandiEventHandler OyuncuPuanHesaplandi;
-        public event KurpiyerKartCekildiEventHandler KurpiyerKartCekildi;
-        public event KurpiyerPuanHesaplandiEventHandler KurpiyerPuanHesaplandi;
         public event OyunBittiEventHandler OyunBitti;
 
         public void Oyna(List<Kart> deste, Oyuncu oyuncu, Kurpiyer kurpiyer)
@@ -44,7 +40,7 @@ namespace Blackjack
             kurpiyer.KartCek(deste);
 
             // Oyuncu kart çekmeye devam edebilir.
-            while (oyuncu.Puan < 21 && oyuncu.IstekDevam)
+            while (oyuncu.Puan < 21)
             {
                 oyuncu.KartCek(deste);
                 oyuncu.PuanHesapla();

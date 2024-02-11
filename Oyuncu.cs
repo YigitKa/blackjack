@@ -3,8 +3,13 @@ using static Blackjack.Blackjack;
 
 namespace Blackjack
 {
+    public class KartCekildiEventArgs : EventArgs
+    {
+        public Kart CekilenKart { get; set; }
+    }
+
     public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
-    public delegate void KartCekildiEventHandler(object sender, EventArgs e);
+    public delegate void KartCekildiEventHandler(object sender, KartCekildiEventArgs e);
 
     public class Oyuncu
     {
@@ -52,7 +57,7 @@ namespace Blackjack
             Kart kart = Kart.RastgeleCek(deste);
             Kartlar.Add(kart);
 
-            KartCekildi?.Invoke(this, EventArgs.Empty);
+            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart});
 
             PuanHesapla();
 

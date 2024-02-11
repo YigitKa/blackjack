@@ -20,6 +20,12 @@ while (oyunDevamEdiyor)
 {
     // Oyun oynanır.
     Blackjack.Blackjack blackjack = new Blackjack.Blackjack();
+    blackjack.OyunBasladi += Blackjack_OyunBasladi;
+    blackjack.OyunBitti += Blackjack_OyunBitti;
+    oyuncu.KartCekildi += Oyuncu_KartCekildi;
+    oyuncu.PuanHesaplandi += Oyuncu_PuanHesaplandi;
+    kurpiyer.KartCekildi += Kurpiyer_KartCekildi;
+    kurpiyer.PuanHesaplandi += Kurpiyer_PuanHesaplandi;
     blackjack.Oyna(deste, oyuncu, kurpiyer);
 
     // Oyunun sonucu belirlenir ve ekrana yazdırılır.
@@ -35,6 +41,36 @@ while (oyunDevamEdiyor)
         deste = Kart.DesteOlustur();
         oyuncu.BahisKoy(baslangicBahis);
     }
+}
+
+void Kurpiyer_PuanHesaplandi(object sender, EventArgs e)
+{
+    Console.WriteLine($"Kurpiyer puanı yeniden hesaplandı. Puan: {kurpiyer.Puan}");
+}
+
+void Kurpiyer_KartCekildi(object sender, Kurpiyer.KartCekildiEventArgs e)
+{
+    Console.WriteLine($"Kurpiyer kart çekti. Çekilen Kart: {e.CekilenKart}");
+}
+
+void Oyuncu_PuanHesaplandi(object sender, EventArgs e)
+{
+    Console.WriteLine($"Oyuncu puanı yeniden hesaplandı. Puan: {oyuncu.Puan}");
+}
+
+void Oyuncu_KartCekildi(object sender, KartCekildiEventArgs e)
+{
+    Console.WriteLine($"oyuncu kart çekti. Çekilen Kart: {e.CekilenKart}");
+}
+
+void Blackjack_OyunBitti(object sender, OyunBittiEventArgs e)
+{
+    Console.WriteLine($"Oyun bitti. kazanan:{e.KazanmaDurumu}");
+}
+
+void Blackjack_OyunBasladi(object sender, EventArgs e)
+{
+    Console.WriteLine("Oyun başladı.");
 }
 
 Console.WriteLine("Tekrar oynamak için bir tuşa basın...");
