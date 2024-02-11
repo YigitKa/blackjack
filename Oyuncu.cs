@@ -57,14 +57,10 @@ namespace Blackjack
             Kart kart = Kart.RastgeleCek(deste);
             Kartlar.Add(kart);
 
-            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart});
 
             PuanHesapla();
 
-            if (Puan > 21)
-            {
-                Console.WriteLine("Puanınız 21'i aştı. Kaybettiniz.");
-            }
+            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
         }
 
         public void PuanHesapla()

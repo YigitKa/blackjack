@@ -39,13 +39,6 @@ namespace Blackjack
             kurpiyer.KartCek(deste, true);
             kurpiyer.KartCek(deste);
 
-            // Oyuncu kart çekmeye devam edebilir.
-            while (oyuncu.Puan < 21)
-            {
-                oyuncu.KartCek(deste);
-                oyuncu.PuanHesapla();
-            }
-
             // Kurpiyer kart çekmeye başlar.
             if (oyuncu.Puan <= 21)
             {

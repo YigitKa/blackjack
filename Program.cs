@@ -60,10 +60,32 @@ void Oyuncu_PuanHesaplandi(object sender, EventArgs e)
 
 void Oyuncu_KartCekildi(object sender, KartCekildiEventArgs e)
 {
-    Console.WriteLine($"oyuncu kart çekti. Çekilen Kart: {e.CekilenKart}");
+    if (oyuncu.Kartlar.Count < 1)
+    {
+        return;
+    }
+
+    Console.WriteLine($"Oyuncuya kart çekildi! Kart: {e.CekilenKart}");
+    Console.WriteLine("Oyuncu puanı: " + oyuncu.Puan);
+
+    if (oyuncu.Kartlar.Count < 3)
+    {
+        return;
+    }
+
+    if (oyuncu.Puan < 21)
+    {
+        Console.WriteLine("Kart çekmek ister misiniz? (E/H)");
+        string cevap = Console.ReadLine().ToUpper();
+
+        if (cevap == "E")
+        {
+            oyuncu.KartCek(deste);
+        }
+    }
 }
 
-void Blackjack_OyunBitti(object sender, OyunBittiEventArgs e)
+    void Blackjack_OyunBitti(object sender, OyunBittiEventArgs e)
 {
     Console.WriteLine($"Oyun bitti. kazanan:{e.KazanmaDurumu}");
 }
