@@ -1,23 +1,26 @@
 ﻿using Blackjack;
 
-// Oyun ayarları
-int baslangicBahis = 100;
-int minimumBahis = 10;
-
-// Deste oluşturulur.
-List<Kart> deste = Kart.DesteOlustur();
-
-// Oyuncu ve Kurpiyer nesneleri oluşturulur.
-Oyuncu oyuncu = new Oyuncu(baslangicBahis);
-Kurpiyer kurpiyer = new Kurpiyer();
-
-// Oyun başlangıcında bahis alınır.
-oyuncu.BahisKoy(baslangicBahis);
+Oyuncu oyuncu;
+Kurpiyer kurpiyer;
 
 // Oyun döngüsü
 bool oyunDevamEdiyor = true;
 while (oyunDevamEdiyor)
 {
+    Console.WriteLine($"Lütfen bahsinizi girin.");
+    // Oyun ayarları
+    int baslangicBahis = int.Parse(Console.ReadLine());
+
+    // Deste oluşturulur.
+    List<Kart> deste = Kart.DesteOlustur();
+
+    // Oyuncu ve Kurpiyer nesneleri oluşturulur.
+    oyuncu = new Oyuncu(baslangicBahis);
+    kurpiyer = new Kurpiyer();
+
+    // Oyun başlangıcında bahis alınır.
+    oyuncu.BahisKoy(baslangicBahis);
+
     // Oyun oynanır.
     Blackjack.Blackjack blackjack = new Blackjack.Blackjack();
     blackjack.OyunBasladi += Blackjack_OyunBasladi;
@@ -28,18 +31,43 @@ while (oyunDevamEdiyor)
     kurpiyer.PuanHesaplandi += Kurpiyer_PuanHesaplandi;
     blackjack.Oyna(deste, oyuncu, kurpiyer);
 
-    // Oyunun sonucu belirlenir ve ekrana yazdırılır.
-    KazanmaDurumu kazanmaDurumu = blackjack.KazanmaDurumunuBelirle(oyuncu.Puan, kurpiyer.Puan);
-    oyuncu.KazanmaDurumunaGoreIslemYap(kazanmaDurumu);
-
-    // Oyuncu tekrar oynamak ister mi?
-    oyunDevamEdiyor = OyuncuTekrarOynamakIsterMi(oyuncu, minimumBahis);
-
-    // Yeni oyun için deste ve bahis sıfırlanır.
-    if (oyunDevamEdiyor)
+    if (kurpiyer.Puan > 21)
     {
-        deste = Kart.DesteOlustur();
-        oyuncu.BahisKoy(baslangicBahis);
+        blackjack.OyunuBitir(oyuncu, kurpiyer);
+    }
+
+    while (oyuncu.Puan < 21)
+    {
+        Console.WriteLine("Kart çekmek ister misiniz? (E/H)");
+        string cevap = Console.ReadLine().ToUpper();
+
+        if (cevap == "E")
+        {
+            oyuncu.KartCek(deste);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if (oyuncu.Puan > 21)
+    {
+        blackjack.OyunuBitir(oyuncu, kurpiyer);
+        return;
+    }
+
+    while (kurpiyer.Puan < 17 || (kurpiyer.Puan < oyuncu.Puan && kurpiyer.Puan <= 21))
+    {
+        kurpiyer.KartCek(deste);
+    }
+
+    blackjack.OyunuBitir(oyuncu, kurpiyer);
+
+    Console.WriteLine("Tekrar oynamak ister misiniz? (E/H)");
+    if (Console.ReadLine().ToLower() == "h")
+    {
+        oyunDevamEdiyor = false;
     }
 }
 
@@ -67,22 +95,6 @@ void Oyuncu_KartCekildi(object sender, KartCekildiEventArgs e)
 
     Console.WriteLine($"Oyuncuya kart çekildi! Kart: {e.CekilenKart}");
     Console.WriteLine("Oyuncu puanı: " + oyuncu.Puan);
-
-    if (oyuncu.Kartlar.Count < 3)
-    {
-        return;
-    }
-
-    if (oyuncu.Puan < 21)
-    {
-        Console.WriteLine("Kart çekmek ister misiniz? (E/H)");
-        string cevap = Console.ReadLine().ToUpper();
-
-        if (cevap == "E")
-        {
-            oyuncu.KartCek(deste);
-        }
-    }
 }
 
     void Blackjack_OyunBitti(object sender, OyunBittiEventArgs e)

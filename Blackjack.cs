@@ -26,29 +26,22 @@ namespace Blackjack
     {
         public event OyunBasladiEventHandler OyunBasladi;
         public event OyunBittiEventHandler OyunBitti;
+        public bool oyunuBitir = false;
 
         public void Oyna(List<Kart> deste, Oyuncu oyuncu, Kurpiyer kurpiyer)
         {
             // Oyun başlangıcında event tetiklenir.
             OyunBasladi?.Invoke(this, EventArgs.Empty);
 
-
             // İlk iki kart dağıtılır.
             oyuncu.KartCek(deste);
             oyuncu.KartCek(deste);
             kurpiyer.KartCek(deste, true);
             kurpiyer.KartCek(deste);
+        }
 
-            // Kurpiyer kart çekmeye başlar.
-            if (oyuncu.Puan <= 21)
-            {
-                while (kurpiyer.Puan < 17 || (kurpiyer.Puan < oyuncu.Puan && kurpiyer.Puan <= 21))
-                {
-                    kurpiyer.KartCek(deste);
-                    kurpiyer.PuanHesapla();
-                }
-            }
-
+        public void OyunuBitir(Oyuncu oyuncu, Kurpiyer kurpiyer)
+        {
             // Oyunun kazananı belirlenir ve event tetiklenir.
             KazanmaDurumu kazanmaDurumu = KazanmaDurumunuBelirle(oyuncu.Puan, kurpiyer.Puan);
             OyunBitti?.Invoke(this, new OyunBittiEventArgs
