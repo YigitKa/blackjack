@@ -4,7 +4,6 @@ namespace GameUI;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
     StackLayout kurpiyerKartlariStackLayout = new StackLayout();
     StackLayout oyuncuKartlariStackLayout = new StackLayout();
 
@@ -20,8 +19,8 @@ public partial class MainPage : ContentPage
         // Deste oluşturulur.
         List<Kart> deste = Kart.DesteOlustur();
 
+        
         // Oyun başlangıcında bahis alınır.
-        oyuncu.BahisKoy(100);
         oyuncu.KartCekildi += Oyuncu_KartCekildi;
         kurpiyer.KartCekildi += Kurpiyer_KartCekildi;
         // Oyun oynanır.
@@ -46,29 +45,57 @@ public partial class MainPage : ContentPage
         grid.Add(kurpiyerKartlariStackLayout, 0, 0);
         kurpiyerKartlariStackLayout.Children.Add(new Label { Text = "Kurpiyer Kartları", HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center });
         kurpiyerKartlariStackLayout.Children.Add(kurpiyerKartlarYatay);
+        kurpiyerKartlarYatay.HorizontalOptions = LayoutOptions.Center;
+        kurpiyerKartlarYatay.VerticalOptions = LayoutOptions.Center;
 
         // Oyuncu kartları
         grid.Add(oyuncuKartlariStackLayout, 0, 2);
         oyuncuKartlariStackLayout.Children.Add(new Label { Text = "Oyuncu Kartları", HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center });
         oyuncuKartlariStackLayout.Children.Add(oyuncuKartlarYatay);
+        oyuncuKartlarYatay.HorizontalOptions = LayoutOptions.Center;
+        oyuncuKartlarYatay.VerticalOptions = LayoutOptions.Center;
 
         // Bilgi alanı
         var bilgiLabel = new Label();
         grid.Add(bilgiLabel, 0, 3);
 
-        // Butonlar
-        var oyunuBaslat = new Button { Text = "Oyunu Başlat", MaximumWidthRequest = 200, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
         grid.Add(bottomBar, 0, 4);
-        bottomBar.Children.Add(oyunuBaslat);
+        bottomBar.HorizontalOptions = LayoutOptions.Center;
+        bottomBar.VerticalOptions = LayoutOptions.Center;
+        
         // Butonlar
-        var kartCekButonu = new Button { Text = "Kart İste", IsEnabled = false, MaximumWidthRequest = 200, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
+        var oyunuBaslat = new Button {
+            Text = "Oyunu Başlat",
+            WidthRequest = 200,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            Margin = new Thickness(10) };
+        bottomBar.Children.Add(oyunuBaslat);
+
+        var kartCekButonu = new Button {
+            Text = "Kart İste",
+            IsEnabled = false,
+            WidthRequest = 200,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            Margin = new Thickness(10) };
         bottomBar.Children.Add(kartCekButonu);
 
-        var durButonu = new Button { Text = "Dur", IsEnabled = false, MaximumWidthRequest = 200, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
+        var durButonu = new Button {
+            Text = "Dur",
+            IsEnabled = false,
+            WidthRequest = 200,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            Margin = new Thickness(10) };
         bottomBar.Children.Add(durButonu);
 
-        oyunuBaslat.Clicked += (sender, e) =>
+        oyunuBaslat.Clicked += async (sender, e) =>
         {
+            var bahis = await DisplayPromptAsync("Bahis Gir", "Oynanacak bahis miktarını girin:", "OK", "Cancel", "100", -1, Keyboard.Numeric, "100");
+          
+            oyuncu.BahisKoy(Convert.ToInt32(bahis));
+            
             oyun.Oyna(deste, oyuncu, kurpiyer);
             kartCekButonu.IsEnabled = durButonu.IsEnabled = true;
             oyunuBaslat.IsEnabled = false;
@@ -138,11 +165,6 @@ public partial class MainPage : ContentPage
     }
 
     private void Oyun_OyunBasladi(object sender, EventArgs e)
-    {
-
-    }
-
-    private void OnCounterClicked(object sender, EventArgs e)
     {
 
     }

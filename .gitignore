@@ -1,2 +1,3 @@
 
-ConsoleTest/obj/Debug/net7.0/Blackjack.assets.cache
+ConsoleTest/obj/*
+GameUI/bin/*

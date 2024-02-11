@@ -1,4 +1,4 @@
-﻿<Properties StartupConfiguration="{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}|Default">
+﻿<Properties StartupConfiguration="{0DFC90FE-B59D-445D-9399-E9FF2D12C2BC}|Default">
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.GameUI PreferredExecutionTarget="MyAppleMacCatalystID" />
   <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
@@ -23,9 +23,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
   <DisabledProjects>
     <String>Blackjack/Blackjack.csproj</String>
   </DisabledProjects>
