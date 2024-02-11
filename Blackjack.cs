@@ -26,6 +26,52 @@ namespace Blackjack
         Kupa,
     }
 
+    public delegate void KartCekildiEventHandler(object sender, EventArgs e);
+    public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
+    public delegate void BahisKonulduEventHandler(object sender, EventArgs e);
+    public delegate void KazandiEventHandler(object sender, EventArgs e);
+    public delegate void KaybettiEventHandler(object sender, EventArgs e);
+
+    public class KartCekildiIsleyici
+    {
+        public void OnKartCekildi(object sender, EventArgs e)
+        {
+            // Kart çekme işlemini gerçekleştirir.
+        }
+    }
+
+    public class PuanHesaplandiIsleyici
+    {
+        public void OnPuanHesaplandi(object sender, EventArgs e)
+        {
+            // Oyuncunun puanını hesaplar.
+        }
+    }
+
+    public class BahisKonulduIsleyici
+    {
+        public void OnBahisKonuldu(object sender, EventArgs e)
+        {
+            // Oyuncunun bahis koyma işlemini gerçekleştirir.
+        }
+    }
+
+    public class KazandiIsleyici
+    {
+        public void OnKazandi(object sender, EventArgs e)
+        {
+            // Oyunu kazanan oyuncuya ilişkin işlemleri gerçekleştirir.
+        }
+    }
+
+    public class KaybettiIsleyici
+    {
+        public void OnKaybetti(object sender, EventArgs e)
+        {
+            // Oyunu kaybeden oyuncuya ilişkin işlemleri gerçekleştirir.
+        }
+    }
+
     public class Blackjack
 	{
 		public Blackjack()
@@ -89,105 +135,7 @@ namespace Blackjack
 
                 return kart;
             }
-
         }
-
-        public class Oyuncu
-        {
-            public List<Kart> Kartlari { get; set; }
-            public int Puan { get; set; }
-
-            public Oyuncu()
-            {
-                Kartlari = new List<Kart>();
-            }
-
-            public void KartCek(List<Kart> deste)
-            {
-                Kart kart = Kart.RastgeleCek(deste);
-                Kartlari.Add(kart);
-                Puan = PuanHesapla();
-            }
-
-            public int PuanHesapla()
-            {
-                int puan = 0;
-                bool asVar = false;
-
-                foreach (Kart kart in Kartlari)
-                {
-                    if (kart.Deger == KartDegeri.As)
-                    {
-                        asVar = true;
-                        puan += 1;
-                    }
-                    else if ((int)kart.Deger <= 10)
-                    {
-                        puan += (int)kart.Deger;
-                    }
-                    else
-                    {
-                        puan += 10;
-                    }
-                }
-
-                if (asVar && puan <= 11)
-                {
-                    puan += 10;
-                }
-
-                return puan;
-            }
-        }
-
-        public class Kurpiyer
-        {
-            public List<Kart> Kartlari { get; set; }
-            public int Puan { get; set; }
-
-            public Kurpiyer()
-            {
-                Kartlari = new List<Kart>();
-            }
-
-            public void KartCek(List<Kart> deste)
-            {
-                Kart kart = Kart.RastgeleCek(deste);
-                Kartlari.Add(kart);
-                Puan = PuanHesapla();
-            }
-
-            public int PuanHesapla()
-            {
-                int puan = 0;
-                bool asVar = false;
-
-                foreach (Kart kart in Kartlari)
-                {
-                    if (kart.Deger == KartDegeri.As)
-                    {
-                        asVar = true;
-                        puan += 1;
-                    }
-                    else if ((int)kart.Deger <= 10)
-                    {
-                        puan += (int)kart.Deger;
-                    }
-                    else
-                    {
-                        puan += 10;
-                    }
-                }
-
-                if (asVar && puan <= 11)
-                {
-                    puan += 10;
-                }
-
-                return puan;
-            }
-        }
-
     }
 }
 
