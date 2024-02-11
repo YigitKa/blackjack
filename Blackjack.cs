@@ -1,82 +1,102 @@
 ﻿using System;
 namespace Blackjack
 {
-    public enum KartDegeri
+    public delegate void OyunBasladiEventHandler(object sender, EventArgs e);
+    public delegate void OyuncuKartCekildiEventHandler(object sender, EventArgs e);
+    public delegate void OyuncuPuanHesaplandiEventHandler(object sender, EventArgs e);
+    public delegate void KurpiyerKartCekildiEventHandler(object sender, EventArgs e);
+    public delegate void KurpiyerPuanHesaplandiEventHandler(object sender, EventArgs e);
+    public delegate void OyunBittiEventHandler(object sender, OyunBittiEventArgs e);
+
+    public class OyunBittiEventArgs : EventArgs
     {
-        As = 1,
-        Ikı = 2,
-        Uc = 3,
-        Dort = 4,
-        Bes = 5,
-        Alti = 6,
-        Yedi = 7,
-        Sekiz = 8,
-        Dokuz = 9,
-        On = 10,
-        Vale = 10,
-        Kız = 10,
-        Papaz = 10,
+        public KazanmaDurumu KazanmaDurumu { get; set; }
+        public int OyuncuPuan { get; set; }
+        public int KurpiyerPuan { get; set; }
     }
 
-    public enum KartRengi
+    public enum KazanmaDurumu
     {
-        Sinek,
-        Karo,
-        Maça,
-        Kupa,
-    }
-
-    public delegate void KartCekildiEventHandler(object sender, EventArgs e);
-    public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
-    public delegate void BahisKonulduEventHandler(object sender, EventArgs e);
-    public delegate void KazandiEventHandler(object sender, EventArgs e);
-    public delegate void KaybettiEventHandler(object sender, EventArgs e);
-
-    public class KartCekildiIsleyici
-    {
-        public void OnKartCekildi(object sender, EventArgs e)
-        {
-            // Kart çekme işlemini gerçekleştirir.
-        }
-    }
-
-    public class PuanHesaplandiIsleyici
-    {
-        public void OnPuanHesaplandi(object sender, EventArgs e)
-        {
-            // Oyuncunun puanını hesaplar.
-        }
-    }
-
-    public class BahisKonulduIsleyici
-    {
-        public void OnBahisKonuldu(object sender, EventArgs e)
-        {
-            // Oyuncunun bahis koyma işlemini gerçekleştirir.
-        }
-    }
-
-    public class KazandiIsleyici
-    {
-        public void OnKazandi(object sender, EventArgs e)
-        {
-            // Oyunu kazanan oyuncuya ilişkin işlemleri gerçekleştirir.
-        }
-    }
-
-    public class KaybettiIsleyici
-    {
-        public void OnKaybetti(object sender, EventArgs e)
-        {
-            // Oyunu kaybeden oyuncuya ilişkin işlemleri gerçekleştirir.
-        }
+        OyuncuKazandi,
+        KurpiyerKazandi,
+        Beraberlik
     }
 
     public class Blackjack
-	{
-		public Blackjack()
-		{
-		}
+    {
+        public event OyunBasladiEventHandler OyunBasladi;
+        public event OyuncuKartCekildiEventHandler OyuncuKartCekildi;
+        public event OyuncuPuanHesaplandiEventHandler OyuncuPuanHesaplandi;
+        public event KurpiyerKartCekildiEventHandler KurpiyerKartCekildi;
+        public event KurpiyerPuanHesaplandiEventHandler KurpiyerPuanHesaplandi;
+        public event OyunBittiEventHandler OyunBitti;
+
+        public void Oyna(List<Kart> deste)
+        {
+            // Oyun başlangıcında event tetiklenir.
+            OyunBasladi?.Invoke(this, EventArgs.Empty);
+
+            // Oyuncu ve Kurpiyer nesneleri oluşturulur.
+            Oyuncu oyuncu = new Oyuncu();
+            Kurpiyer kurpiyer = new Kurpiyer();
+
+            // İlk iki kart dağıtılır.
+            oyuncu.KartCek(deste);
+            oyuncu.KartCek(deste);
+            kurpiyer.KartCek(deste, true);
+            kurpiyer.KartCek(deste);
+
+            // Oyuncu kart çekmeye devam edebilir.
+            while (oyuncu.Puan < 21 && oyuncu.IstekDevam)
+            {
+                oyuncu.KartCek(deste);
+                oyuncu.PuanHesapla();
+            }
+
+            // Kurpiyer kart çekmeye başlar.
+            if (oyuncu.Puan <= 21)
+            {
+                while (kurpiyer.Puan < 17 || (kurpiyer.Puan < oyuncu.Puan && kurpiyer.Puan <= 21))
+                {
+                    kurpiyer.KartCek(deste);
+                    kurpiyer.PuanHesapla();
+                }
+            }
+
+            // Oyunun kazananı belirlenir ve event tetiklenir.
+            KazanmaDurumu kazanmaDurumu = KazanmaDurumunuBelirle(oyuncu.Puan, kurpiyer.Puan);
+            OyunBitti?.Invoke(this, new OyunBittiEventArgs
+            {
+                KazanmaDurumu = kazanmaDurumu,
+                OyuncuPuan = oyuncu.Puan,
+                KurpiyerPuan = kurpiyer.Puan
+            });
+        }
+
+        private KazanmaDurumu KazanmaDurumunuBelirle(int oyuncuPuan, int kurpiyerPuan)
+        {
+            if (oyuncuPuan > 21)
+            {
+                return KazanmaDurumu.KurpiyerKazandi;
+            }
+            else if (kurpiyerPuan > 21)
+            {
+                return KazanmaDurumu.OyuncuKazandi;
+            }
+            else if (oyuncuPuan > kurpiyerPuan)
+            {
+                return KazanmaDurumu.OyuncuKazandi;
+            }
+            else if (kurpiyerPuan > oyuncuPuan)
+            {
+                return KazanmaDurumu.KurpiyerKazandi;
+            }
+            else
+            {
+                return KazanmaDurumu.Beraberlik;
+            }
+        }
     }
+
 }
 

@@ -1,4 +1,4 @@
-﻿using static Blackjack.Blackjack;
+﻿using Blackjack;
 
 class Program
 {
