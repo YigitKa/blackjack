@@ -24,7 +24,7 @@ namespace GameCore
     {
         Sinek,
         Karo,
-        Maça,
+        Maca,
         Kupa
     }
 
@@ -125,15 +125,15 @@ namespace GameCore
                 case Renk.Karo:
                     renkStr = "Karo";
                     break;
-                case Renk.Maça:
-                    renkStr = "Maça";
+                case Renk.Maca:
+                    renkStr = "Maca";
                     break;
                 case Renk.Kupa:
                     renkStr = "Kupa";
                     break;
             }
 
-            return degerStr + " " + renkStr;
+            return renkStr + " " + degerStr ;
         }
     }
 }
