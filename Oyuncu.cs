@@ -3,89 +3,97 @@ using static Blackjack.Blackjack;
 
 namespace Blackjack
 {
-	public class Oyuncu
-	{
-            public List<Kart> Kartlari { get; set; }
-            public int Puan { get; set; }
-            public decimal ToplamPara;
-            public decimal BahisMiktari;
-            public event KartCekildiEventHandler KartCekildi;
-            public event PuanHesaplandiEventHandler PuanHesaplandi;
-            public event BahisKonulduEventHandler BahisKonuldu;
-            public event KazandiEventHandler Kazandi;
-            public event KaybettiEventHandler Kaybetti;
+    public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
+    public delegate void KartCekildiEventHandler(object sender, EventArgs e);
 
-            public void KartCek(List<Kart> deste)
+    public class Oyuncu
+    {
+        public int Bahis { get; set; }
+        public List<Kart> Kartlar { get; set; }
+        public int Puan { get; private set; }
+
+        public event KartCekildiEventHandler KartCekildi;
+        public event PuanHesaplandiEventHandler PuanHesaplandi;
+
+        public Oyuncu(int baslangicBahis)
+        {
+            Kartlar = new List<Kart>();
+            Bahis = baslangicBahis;
+        }
+
+        public void BahisKoy(int miktar)
+        {
+            if (miktar > 0)
             {
-                if (BahisMiktari > ToplamPara)
-                {
-                    throw new Exception("Yetersiz bakiye!");
-                }
-
-                ToplamPara -= BahisMiktari;
-
-                Kart kart = Kart.RastgeleCek(deste);
-                Kartlari.Add(kart);
-
-                KartCekildi?.Invoke(this, EventArgs.Empty);
-
-                Puan = PuanHesapla();
-                PuanHesaplandi?.Invoke(this, EventArgs.Empty);
+                Bahis = miktar;
             }
+        }
 
-            public int PuanHesapla()
+        public void KazanmaDurumunaGoreIslemYap(KazanmaDurumu kazanmaDurumu)
+        {
+            switch (kazanmaDurumu)
             {
-                int puan = 0;
-                bool asVar = false;
+                case KazanmaDurumu.OyuncuKazandi:
+                    Bahis *= 2;
+                    Console.WriteLine("Kazandınız! Bahsiniz iki katına çıktı: " + Bahis);
+                    break;
+                case KazanmaDurumu.KurpiyerKazandi:
+                    Bahis = 0;
+                    Console.WriteLine("Kaybettiniz. Bahsinizi kaybettiniz.");
+                    break;
+                case KazanmaDurumu.Beraberlik:
+                    Console.WriteLine("Beraberlik! Bahsiniz iade edildi.");
+                    break;
+            }
+        }
 
-                foreach (Kart kart in Kartlari)
+        public void KartCek(List<Kart> deste)
+        {
+            Kart kart = Kart.RastgeleCek(deste);
+            Kartlar.Add(kart);
+
+            KartCekildi?.Invoke(this, EventArgs.Empty);
+
+            PuanHesapla();
+
+            if (Puan > 21)
+            {
+                Console.WriteLine("Puanınız 21'i aştı. Kaybettiniz.");
+            }
+        }
+
+        public void PuanHesapla()
+        {
+            int puan = 0;
+            bool asVar = false;
+
+            foreach (Kart kart in Kartlar)
+            {
+                if (kart.Deger == KartDegeri.As)
                 {
-                    if (kart.Deger == KartDegeri.As)
-                    {
-                        asVar = true;
-                        puan += 1;
-                    }
-                    else if ((int)kart.Deger <= 10)
-                    {
-                        puan += (int)kart.Deger;
-                    }
-                    else
-                    {
-                        puan += 10;
-                    }
+                    asVar = true;
+                    puan += 1;
                 }
-
-                if (asVar && puan <= 11)
+                else if ((int)kart.Deger <= 10)
+                {
+                    puan += (int)kart.Deger;
+                }
+                else
                 {
                     puan += 10;
                 }
-
-                return puan;
             }
 
-            public void BahisKoy(decimal bahisMiktari)
+            if (asVar && puan <= 11)
             {
-                if (bahisMiktari > ToplamPara)
-                {
-                    throw new Exception("Yetersiz bakiye!");
-                }
-
-                BahisMiktari = bahisMiktari;
-                BahisKonuldu?.Invoke(this, EventArgs.Empty);
+                puan += 10;
             }
 
-            public void Kazan(decimal kazanc)
-            {
-                ToplamPara += BahisMiktari + kazanc;
-                Kazandi?.Invoke(this, EventArgs.Empty);
-            }
-
-            public void Kaybet()
-            {
-                // Bahis miktarını kaybeder.
-                Kaybetti?.Invoke(this, EventArgs.Empty);
-            }
+            Puan = puan;
+            PuanHesaplandi?.Invoke(this, EventArgs.Empty);
         }
     }
+
+}
 
 
