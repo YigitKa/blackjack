@@ -56,6 +56,11 @@ namespace Blackjack
 
         public static Kart RastgeleCek(List<Kart> deste)
         {
+            if (deste.Count == 0)
+            {
+                deste = DesteOlustur();
+            }
+
             Random random = new Random();
             int index = random.Next(deste.Count);
 

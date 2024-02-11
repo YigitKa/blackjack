@@ -24,7 +24,18 @@ public class Kurpiyer
         }
 
         PuanHesapla();
+
+        while (Puan < 17 && !ilkKart)
+        {
+            Kart kart = Kart.RastgeleCek(deste);
+            Kartlar.Add(kart);
+
+            KartCekildi?.Invoke(this, EventArgs.Empty);
+
+            PuanHesapla();
+        }
     }
+
 
     public void PuanHesapla()
     {

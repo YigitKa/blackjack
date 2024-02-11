@@ -70,7 +70,7 @@ namespace Blackjack
             });
         }
 
-        private KazanmaDurumu KazanmaDurumunuBelirle(int oyuncuPuan, int kurpiyerPuan)
+        public KazanmaDurumu KazanmaDurumunuBelirle(int oyuncuPuan, int kurpiyerPuan)
         {
             if (oyuncuPuan > 21)
             {
