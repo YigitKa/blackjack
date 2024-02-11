@@ -31,14 +31,11 @@ namespace Blackjack
         public event KurpiyerPuanHesaplandiEventHandler KurpiyerPuanHesaplandi;
         public event OyunBittiEventHandler OyunBitti;
 
-        public void Oyna(List<Kart> deste)
+        public void Oyna(List<Kart> deste, Oyuncu oyuncu, Kurpiyer kurpiyer)
         {
             // Oyun başlangıcında event tetiklenir.
             OyunBasladi?.Invoke(this, EventArgs.Empty);
 
-            // Oyuncu ve Kurpiyer nesneleri oluşturulur.
-            Oyuncu oyuncu = new Oyuncu();
-            Kurpiyer kurpiyer = new Kurpiyer();
 
             // İlk iki kart dağıtılır.
             oyuncu.KartCek(deste);

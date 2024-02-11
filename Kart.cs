@@ -1,82 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Blackjack
 {
     public enum KartDegeri
     {
-        As = 1,
-        Ikı = 2,
-        Uc = 3,
-        Dort = 4,
-        Bes = 5,
-        Alti = 6,
-        Yedi = 7,
-        Sekiz = 8,
-        Dokuz = 9,
-        On = 10,
-        Vale = 10,
-        Kız = 10,
-        Papaz = 10,
+        As,
+        Ikı,
+        Üç,
+        Dört,
+        Beş,
+        Altı,
+        Yedi,
+        Sekiz,
+        Dokuz,
+        On,
+        Vale,
+        Dame,
+        Papaz
     }
 
-    public enum KartRengi
+    public enum Renk
     {
         Sinek,
         Karo,
         Maça,
-        Kupa,
+        Kupa
     }
 
-    public delegate void KartCekildiEventHandler(object sender, EventArgs e);
-
-    public class KartCekildiIsleyici
-    {
-        public void OnKartCekildi(object sender, EventArgs e)
-        {
-            // Kart çekme işlemini gerçekleştirir.
-        }
-    }
-
-  
     public class Kart
     {
         public KartDegeri Deger { get; set; }
-        public KartRengi Renk { get; set; }
+        public Renk Renk { get; set; }
 
-        public Kart(KartDegeri deger, KartRengi renk)
+        public Kart(KartDegeri deger, Renk renk)
         {
             Deger = deger;
             Renk = renk;
         }
 
-        public override string ToString()
+        public static List<Kart> DesteOlustur()
         {
-            return $"{Deger} {Renk}";
-        }
-
-        public static List<Kart> DesteyiKar(List<Kart> deste)
-        {
-            // Kartları rastgele sıralayacak bir `Random` nesnesi oluşturma
-            Random rnd = new Random();
-            deste = new List<Kart>();
+            List<Kart> deste = new List<Kart>();
 
             foreach (KartDegeri deger in Enum.GetValues(typeof(KartDegeri)))
             {
-                foreach (KartRengi renk in Enum.GetValues(typeof(KartRengi)))
+                foreach (Renk renk in Enum.GetValues(typeof(Renk)))
                 {
                     deste.Add(new Kart(deger, renk));
                 }
-            }
-
-            // Destedeki her kart için
-            for (int i = 0; i < deste.Count; i++)
-            {
-                // Rastgele bir kart seçme indeksi
-                int rastgeleIndex = rnd.Next(deste.Count);
-
-                // Seçilen kartı en sona taşıma
-                Kart tempKart = deste[i];
-                deste[i] = deste[rastgeleIndex];
-                deste[rastgeleIndex] = tempKart;
             }
 
             return deste;
@@ -84,16 +56,79 @@ namespace Blackjack
 
         public static Kart RastgeleCek(List<Kart> deste)
         {
-            // Rastgele kart seçme
-            Random rnd = new Random();
-            int kartIndex = rnd.Next(deste.Count);
+            Random random = new Random();
+            int index = random.Next(deste.Count);
 
-            // Kartı destenden çıkarma
-            Kart kart = deste[kartIndex];
-            deste.RemoveAt(kartIndex);
+            Kart kart = deste[index];
+            deste.RemoveAt(index);
 
             return kart;
         }
+
+        public override string ToString()
+        {
+            string degerStr = "";
+            switch (Deger)
+            {
+                case KartDegeri.As:
+                    degerStr = "As";
+                    break;
+                case KartDegeri.Ikı:
+                    degerStr = "2";
+                    break;
+                case KartDegeri.Üç:
+                    degerStr = "3";
+                    break;
+                case KartDegeri.Dört:
+                    degerStr = "4";
+                    break;
+                case KartDegeri.Beş:
+                    degerStr = "5";
+                    break;
+                case KartDegeri.Altı:
+                    degerStr = "6";
+                    break;
+                case KartDegeri.Yedi:
+                    degerStr = "7";
+                    break;
+                case KartDegeri.Sekiz:
+                    degerStr = "8";
+                    break;
+                case KartDegeri.Dokuz:
+                    degerStr = "9";
+                    break;
+                case KartDegeri.On:
+                    degerStr = "10";
+                    break;
+                case KartDegeri.Vale:
+                    degerStr = "Vale";
+                    break;
+                case KartDegeri.Dame:
+                    degerStr = "Dame";
+                    break;
+                case KartDegeri.Papaz:
+                    degerStr = "Papaz";
+                    break;
+            }
+
+            string renkStr = "";
+            switch (Renk)
+            {
+                case Renk.Sinek:
+                    renkStr = "Sinek";
+                    break;
+                case Renk.Karo:
+                    renkStr = "Karo";
+                    break;
+                case Renk.Maça:
+                    renkStr = "Maça";
+                    break;
+                case Renk.Kupa:
+                    renkStr = "Kupa";
+                    break;
+            }
+
+            return degerStr + " " + renkStr;
+        }
     }
 }
-

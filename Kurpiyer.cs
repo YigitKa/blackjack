@@ -1,58 +1,37 @@
 ﻿using Blackjack;
 
-public class KurpiyerKartCekildiHandler
-{
-    public void OnKurpiyerKartCekildi(object sender, EventArgs e)
-    {
-        // Kurpiyer kart çekme işlemini gerçekleştirir.
-    }
-}
-
-public class KurpiyerPuanHesaplandiHandler
-{
-    public void OnKurpiyerPuanHesaplandi(object sender, EventArgs e)
-    {
-        // Kurpiyerin puanını hesaplar.
-    }
-}
-
-public delegate void KurpiyerKartCekildiEventHandler(object sender, EventArgs e);
-public delegate void KurpiyerPuanHesaplandiEventHandler(object sender, EventArgs e);
-
 public class Kurpiyer
 {
-    public event KurpiyerKartCekildiEventHandler KurpiyerKartCekildi;
-    public event KurpiyerPuanHesaplandiEventHandler KurpiyerPuanHesaplandi;
+    public List<Kart> Kartlar { get; set; }
+    public int Puan { get; private set; }
 
-    private List<Kart> _kartlar;
-    private int _puan;
-
-    public List<Kart> Kartlari => _kartlar;
-
-    public int Puan => _puan;
+    public event KartCekildiEventHandler KartCekildi;
+    public event PuanHesaplandiEventHandler PuanHesaplandi;
 
     public Kurpiyer()
     {
-        _kartlar = new List<Kart>();
+        Kartlar = new List<Kart>();
     }
 
-    public void KartCek(List<Kart> deste)
+    public void KartCek(List<Kart> deste, bool ilkKart = false)
     {
-        Kart kart = Kart.RastgeleCek(deste);
-        _kartlar.Add(kart);
+        if (!ilkKart)
+        {
+            Kart kart = Kart.RastgeleCek(deste);
+            Kartlar.Add(kart);
 
-        KurpiyerKartCekildi?.Invoke(this, EventArgs.Empty);
+            KartCekildi?.Invoke(this, EventArgs.Empty);
+        }
 
-        _puan = PuanHesapla();
-        KurpiyerPuanHesaplandi?.Invoke(this, EventArgs.Empty);
+        PuanHesapla();
     }
 
-    public int PuanHesapla()
+    public void PuanHesapla()
     {
         int puan = 0;
         bool asVar = false;
 
-        foreach (Kart kart in _kartlar)
+        foreach (Kart kart in Kartlar)
         {
             if (kart.Deger == KartDegeri.As)
             {
@@ -74,7 +53,8 @@ public class Kurpiyer
             puan += 10;
         }
 
-        return puan;
+        Puan = puan;
+        PuanHesaplandi?.Invoke(this, EventArgs.Empty);
     }
-
 }
+
