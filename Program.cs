@@ -31,11 +31,6 @@ while (oyunDevamEdiyor)
     kurpiyer.PuanHesaplandi += Kurpiyer_PuanHesaplandi;
     blackjack.Oyna(deste, oyuncu, kurpiyer);
 
-    if (kurpiyer.Puan > 21)
-    {
-        blackjack.OyunuBitir(oyuncu, kurpiyer);
-    }
-
     while (oyuncu.Puan < 21)
     {
         Console.WriteLine("Kart çekmek ister misiniz? (E/H)");
@@ -57,7 +52,7 @@ while (oyunDevamEdiyor)
         return;
     }
 
-    while (kurpiyer.Puan < 17 || (kurpiyer.Puan < oyuncu.Puan && kurpiyer.Puan <= 21))
+    while (kurpiyer.Puan < 17)
     {
         kurpiyer.KartCek(deste);
     }
@@ -73,11 +68,22 @@ while (oyunDevamEdiyor)
 
 void Kurpiyer_PuanHesaplandi(object sender, EventArgs e)
 {
+    if (kurpiyer.Kartlar.Count == 2 || kurpiyer.Kartlar.Count < 1)
+    {
+        return;
+    }
+
     Console.WriteLine($"Kurpiyer puanı yeniden hesaplandı. Puan: {kurpiyer.Puan}");
 }
 
 void Kurpiyer_KartCekildi(object sender, Kurpiyer.KartCekildiEventArgs e)
 {
+    if (kurpiyer.Kartlar.Count == 2)
+    {
+        Console.WriteLine($"Kurpiyer kapalı kart çekti.");
+        return;
+    }
+
     Console.WriteLine($"Kurpiyer kart çekti. Çekilen Kart: {e.CekilenKart}");
 }
 
@@ -97,18 +103,45 @@ void Oyuncu_KartCekildi(object sender, KartCekildiEventArgs e)
     Console.WriteLine("Oyuncu puanı: " + oyuncu.Puan);
 }
 
-    void Blackjack_OyunBitti(object sender, OyunBittiEventArgs e)
+void Blackjack_OyunBitti(object sender, OyunBittiEventArgs e)
 {
-    Console.WriteLine($"Oyun bitti. kazanan:{e.KazanmaDurumu}");
+    Console.WriteLine($"Oyun bitti.");
+    Console.WriteLine($"Oyuncu Puan: {oyuncu.Puan}");
+
+    Console.WriteLine($"Oyuncu Kartları: ");
+    foreach (Kart kart in kurpiyer.Kartlar)
+    {
+        Console.WriteLine($"{kart}");
+
+    }
+    Console.WriteLine($"Kurpiyer Puan: {kurpiyer.Puan}");
+
+    Console.WriteLine($"Kurpiyer Kartları: ");
+    foreach (Kart kart in oyuncu.Kartlar)
+    {
+        Console.WriteLine($"{kart}");
+    }
+
+    switch (e.KazanmaDurumu)
+    {
+        case KazanmaDurumu.OyuncuKazandi:
+            Console.ForegroundColor = ConsoleColor.Green;
+            break;
+        case KazanmaDurumu.KurpiyerKazandi:
+            Console.ForegroundColor = ConsoleColor.Red;
+            break;
+        case KazanmaDurumu.Beraberlik:
+            Console.ForegroundColor = ConsoleColor.Blue;
+            break;
+    }
+    Console.WriteLine($"Kazanan:{e.KazanmaDurumu}");
+    Console.ForegroundColor = ConsoleColor.White;
 }
 
 void Blackjack_OyunBasladi(object sender, EventArgs e)
 {
     Console.WriteLine("Oyun başladı.");
 }
-
-Console.WriteLine("Tekrar oynamak için bir tuşa basın...");
-Console.ReadKey();
 
 bool OyuncuTekrarOynamakIsterMi(Oyuncu oyuncu, int minimumBahis)
 {

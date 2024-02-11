@@ -33,7 +33,7 @@ public class Kurpiyer
 
         PuanHesapla();
 
-        while (Puan < 17 && !ilkKart)
+        if (Puan < 17 && !ilkKart)
         {
             Kart kart = Kart.RastgeleCek(deste);
             Kartlar.Add(kart);

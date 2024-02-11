@@ -6,17 +6,17 @@ namespace Blackjack
     public enum KartDegeri
     {
         As,
-        Ikı,
-        Üç,
-        Dört,
-        Beş,
-        Altı,
-        Yedi,
-        Sekiz,
-        Dokuz,
-        On,
+        Ikı = 2,
+        Üç = 3,
+        Dört = 4,
+        Beş = 5,
+        Altı = 6,
+        Yedi = 7,
+        Sekiz = 8,
+        Dokuz = 9,
+        On = 10,
         Vale,
-        Dame,
+        Kralice,
         Papaz
     }
 
@@ -108,8 +108,8 @@ namespace Blackjack
                 case KartDegeri.Vale:
                     degerStr = "Vale";
                     break;
-                case KartDegeri.Dame:
-                    degerStr = "Dame";
+                case KartDegeri.Kralice:
+                    degerStr = "Kralice";
                     break;
                 case KartDegeri.Papaz:
                     degerStr = "Papaz";
