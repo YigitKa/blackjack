@@ -4,28 +4,23 @@ namespace GameUI;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    int count = 0;
+    StackLayout kurpiyerKartlariStackLayout = new StackLayout();
+    StackLayout oyuncuKartlariStackLayout = new StackLayout();
+    // Oyuncu ve Kurpiyer nesneleri oluşturulur.
+    Oyuncu oyuncu = new Oyuncu(100);
+    Kurpiyer kurpiyer = new Kurpiyer();
 
-	public MainPage()
-	{
-
-
+    public MainPage()
+    {
         // Deste oluşturulur.
         List<Kart> deste = Kart.DesteOlustur();
 
-        // Oyuncu ve Kurpiyer nesneleri oluşturulur.
-      Oyuncu  oyuncu = new Oyuncu(100);
-      Kurpiyer  kurpiyer = new Kurpiyer();
-
         // Oyun başlangıcında bahis alınır.
         oyuncu.BahisKoy(100);
-
-
+        oyuncu.KartCekildi += Oyuncu_KartCekildi;
+        kurpiyer.KartCekildi += Kurpiyer_KartCekildi;
         // Oyun oynanır.
-        Blackjack blackjack = new Blackjack();
-
-        blackjack.Oyna(deste, oyuncu, kurpiyer);
-
         var grid = new Grid
         {
             ColumnDefinitions =
@@ -42,58 +37,93 @@ public partial class MainPage : ContentPage
             }
         };
         Blackjack oyun = new Blackjack();
+        oyun.OyunBasladi += Oyun_OyunBasladi;
+        oyun.OyunBitti += Oyun_OyunBitti;
+        // Kurpiyer kartları
+        grid.Add(kurpiyerKartlariStackLayout, 0, 0);
+        kurpiyerKartlariStackLayout.Children.Add(new Label { Text = "Kurpiyer Kartları" });
 
         // Oyuncu kartları
-        var oyuncuKartlariLabel = new Label { Text = "Oyuncu Kartları" };
-        grid.Children.Add(oyuncuKartlariLabel);
+        grid.Add(oyuncuKartlariStackLayout, 0, 2);
+        oyuncuKartlariStackLayout.Children.Add(new Label { Text = "Oyuncu Kartları" });
 
-        var oyuncuKartlariStackLayout = new StackLayout();
-        grid.Children.Add(oyuncuKartlariStackLayout);
-
-        // Kurpiyer kartları
-        var kurpiyerKartlariLabel = new Label { Text = "Kurpiyer Kartları" };
-        grid.Children.Add(kurpiyerKartlariLabel);
-
-        var kurpiyerKartlariStackLayout = new StackLayout();
-        grid.Children.Add(kurpiyerKartlariStackLayout);
-
-        // Oyuncu puanı
-        var oyuncuPuanLabel = new Label { Text = "Oyuncu Puanı: " + oyuncu.Puan };
-        grid.Children.Add(oyuncuPuanLabel);
-
-        // Kurpiyer puanı
-        var kurpiyerPuanLabel = new Label { Text = "Kurpiyer Puanı: " + kurpiyer.Puan };
-        grid.Children.Add(kurpiyerPuanLabel);
+        // Bilgi alanı
+        var bilgiLabel = new Label();
+        grid.Add(bilgiLabel, 0, 3);
 
         // Butonlar
-        var kartCekButonu = new Button { Text = "Kart Çek" };
-        grid.Children.Add(kartCekButonu);
+        var oyunuBaslat = new Button { Text = "Oyunu Başlat" };
+        grid.Add(oyunuBaslat, 0, 4);
 
-        var pasButonu = new Button { Text = "Pas" };
-        grid.Children.Add(pasButonu);
+        // Butonlar
+        var kartCekButonu = new Button { Text = "Kart İste", IsVisible = false };
+        grid.Add(kartCekButonu, 0, 4);
+
+        var durButonu = new Button { Text = "Dur", IsVisible = false };
+        grid.Add(durButonu, 1, 4);
+
+        oyunuBaslat.Clicked += (sender, e) =>
+        {
+            oyun.Oyna(deste, oyuncu, kurpiyer);
+            kartCekButonu.IsVisible = durButonu.IsVisible = true;
+            oyunuBaslat.IsVisible = false;
+        };
 
         // Butonlara tıklama olayları
         kartCekButonu.Clicked += (sender, e) =>
         {
             oyuncu.KartCek(deste);
-            oyuncuKartlariStackLayout.Children.Add(new Label { Text = "" });
-            oyuncuPuanLabel.Text = "Oyuncu Puanı: " + oyuncu.Puan;
 
-            oyun.OyunuBitir(oyuncu, kurpiyer);
+            if (oyuncu.Puan > 21)
+            {
+                oyun.OyunuBitir(oyuncu, kurpiyer);
+            }
         };
 
-        pasButonu.Clicked += (sender, e) =>
+        durButonu.Clicked += (sender, e) =>
         {
-            // Oyuncu pas geçtiğinde yapılacak işlemler
+            while (kurpiyer.Puan < 17)
+            {
+                kurpiyer.KartCek(deste);
+            }
+
+            oyun.OyunuBitir(oyuncu, kurpiyer);
         };
 
         Content = grid;
     }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-	
-	}
+    private void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
+    {
+        (kurpiyerKartlariStackLayout.Children[1] as Label).Text  =  kurpiyer.Kartlar[0].ToString();
+        DisplayAlert("Oyun Bitti", $"{e.KazanmaDurumu}\r\nOyuncu Puanı: {e.OyuncuPuan}\r\nKurpiyer Puanı: {e.KurpiyerPuan}", "Tamam");
+    }
+
+    private void Kurpiyer_KartCekildi(object sender, Kurpiyer.KartCekildiEventArgs e)
+    {
+        if (kurpiyer.Kartlar.Count > 1)
+        {
+            kurpiyerKartlariStackLayout.Children.Add(new Label { Text = e.CekilenKart.ToString() });
+            return;
+        }
+
+        kurpiyerKartlariStackLayout.Children.Add(new Label { Text = "****KAPALI KART*****" });
+    }
+
+    private void Oyuncu_KartCekildi(object sender, KartCekildiEventArgs e)
+    {
+        oyuncuKartlariStackLayout.Children.Add(new Label { Text = e.CekilenKart.ToString() });
+    }
+
+    private void Oyun_OyunBasladi(object sender, EventArgs e)
+    {
+
+    }
+
+    private void OnCounterClicked(object sender, EventArgs e)
+    {
+
+    }
 }
 
 

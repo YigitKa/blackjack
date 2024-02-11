@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/Blackjack.csproj": {}
+    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/ConsoleTest/Blackjack.csproj": {}
   },
   "projects": {
-    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/Blackjack.csproj": {
+    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/ConsoleTest/Blackjack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/Blackjack.csproj",
+        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/ConsoleTest/Blackjack.csproj",
         "projectName": "Blackjack",
-        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/Blackjack.csproj",
+        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/ConsoleTest/Blackjack.csproj",
         "packagesPath": "/Users/yigitkatircioglu/.nuget/packages/",
-        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/obj/",
+        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/ConsoleTest/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/yigitkatircioglu/.nuget/NuGet/NuGet.Config"
@@ -27,8 +27,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj": {
-                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj"
+              "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj": {
+                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj"
               }
             }
           }
@@ -62,14 +62,14 @@
         }
       }
     },
-    "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj": {
+    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj",
+        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj",
         "projectName": "GameCore",
-        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj",
+        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj",
         "packagesPath": "/Users/yigitkatircioglu/.nuget/packages/",
-        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/obj/",
+        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

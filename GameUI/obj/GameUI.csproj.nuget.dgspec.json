@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/yigitkatircioglu/Projects/Blackjack/GameUI/GameUI.csproj": {}
+    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/GameUI.csproj": {}
   },
   "projects": {
-    "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj": {
+    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj",
+        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj",
         "projectName": "GameCore",
-        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj",
+        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj",
         "packagesPath": "/Users/yigitkatircioglu/.nuget/packages/",
-        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/obj/",
+        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -350,14 +350,14 @@
         }
       }
     },
-    "/Users/yigitkatircioglu/Projects/Blackjack/GameUI/GameUI.csproj": {
+    "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/GameUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/GameUI/GameUI.csproj",
+        "projectUniqueName": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/GameUI.csproj",
         "projectName": "GameUI",
-        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameUI/GameUI.csproj",
+        "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/GameUI.csproj",
         "packagesPath": "/Users/yigitkatircioglu/.nuget/packages/",
-        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameUI/obj/",
+        "outputPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -376,24 +376,24 @@
           "net7.0-android33.0": {
             "targetAlias": "net7.0-android",
             "projectReferences": {
-              "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj": {
-                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj"
+              "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj": {
+                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj"
               }
             }
           },
           "net7.0-ios16.1": {
             "targetAlias": "net7.0-ios",
             "projectReferences": {
-              "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj": {
-                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj"
+              "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj": {
+                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj"
               }
             }
           },
           "net7.0-maccatalyst16.1": {
             "targetAlias": "net7.0-maccatalyst",
             "projectReferences": {
-              "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj": {
-                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj"
+              "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj": {
+                "projectPath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj"
               }
             }
           }

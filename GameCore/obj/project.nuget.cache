@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1Z1sTILk4PT3DjRB+R6OMrtXgw6XOFx/8tIkJqoaw0m0J/P4IwUuEVbrJd0f+M1/NQNGIzJxDwn4fuCIB5reJA==",
+  "dgSpecHash": "4QZ9KK7XIuOcXdnednZkaDZ+wbzY2vvh7q8utfFEMrsAL+Dz4FwtIv/F2SPLFJDy1eo8Xe7C1x6JMuOBa+2gVg==",
   "success": true,
-  "projectFilePath": "/Users/yigitkatircioglu/Projects/Blackjack/GameCore/GameCore.csproj",
+  "projectFilePath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameCore/GameCore.csproj",
   "expectedPackageFiles": [
     "/Users/yigitkatircioglu/.nuget/packages/googlegson/2.9.1.1/googlegson.2.9.1.1.nupkg.sha512",
     "/Users/yigitkatircioglu/.nuget/packages/microsoft.extensions.configuration/7.0.0/microsoft.extensions.configuration.7.0.0.nupkg.sha512",

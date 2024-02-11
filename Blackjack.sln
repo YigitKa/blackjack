@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blackjack", "Blackjack\Blackjack.csproj", "{77435694-9A72-45B8-93E4-240FEAC810C2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCore", "GameCore\GameCore.csproj", "{3A69A92B-38FE-4CBA-8039-BC6EE40745A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUI", "GameUI\GameUI.csproj", "{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blackjack", "ConsoleTest\Blackjack.csproj", "{83265D13-F5B7-4EED-94BD-E4A0B85810B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{77435694-9A72-45B8-93E4-240FEAC810C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77435694-9A72-45B8-93E4-240FEAC810C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77435694-9A72-45B8-93E4-240FEAC810C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77435694-9A72-45B8-93E4-240FEAC810C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A69A92B-38FE-4CBA-8039-BC6EE40745A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A69A92B-38FE-4CBA-8039-BC6EE40745A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A69A92B-38FE-4CBA-8039-BC6EE40745A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

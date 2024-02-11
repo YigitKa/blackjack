@@ -7,9 +7,9 @@
       <dSYMSourcePathExists>false</dSYMSourcePathExists>
       <NoSymbolStrip>true</NoSymbolStrip>
       <dSYMInfoPlistRelativePath>GameUI.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
-      <SymbolFile>/Users/yigitkatircioglu/Projects/Blackjack/GameUI/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/mtouch-symbols.list</SymbolFile>
+      <SymbolFile>/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/mtouch-symbols.list</SymbolFile>
       <DSymName>GameUI.app.dSYM</DSymName>
-      <SourceProjectPath>/Users/yigitkatircioglu/Projects/Blackjack/GameUI</SourceProjectPath>
+      <SourceProjectPath>/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI</SourceProjectPath>
     </_PostProcessingItem>
   </ItemGroup>
 </Project>

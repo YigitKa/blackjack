@@ -30,14 +30,14 @@ namespace GameCore
 
         public void Oyna(List<Kart> deste, Oyuncu oyuncu, Kurpiyer kurpiyer)
         {
-            // Oyun başlangıcında event tetiklenir.
-            OyunBasladi?.Invoke(this, EventArgs.Empty);
-
             // İlk iki kart dağıtılır.
             oyuncu.KartCek(deste);
             oyuncu.KartCek(deste);
             kurpiyer.KartCek(deste, true);
             kurpiyer.KartCek(deste);
+
+            // Oyun başlangıcında event tetiklenir.
+            OyunBasladi?.Invoke(this, EventArgs.Empty);
         }
 
         public void OyunuBitir(Oyuncu oyuncu, Kurpiyer kurpiyer)

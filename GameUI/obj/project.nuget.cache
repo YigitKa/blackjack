@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YDLSDKpTWYgAK/9XOI+IQnVeXYwkqe0nALOCKFut1L6kKeMd6w32l+3u1cDCpKlX15EXfizxmzgRxuMXWQ0DHw==",
+  "dgSpecHash": "0o1sFux4+/biMU+GqJizY0ezaWAELLqBj+6goxB3VQN5aM1ah7nB63EjX97IsJ2SBeicwX21VeOrq2vH21S/YQ==",
   "success": true,
-  "projectFilePath": "/Users/yigitkatircioglu/Projects/Blackjack/GameUI/GameUI.csproj",
+  "projectFilePath": "/Users/yigitkatircioglu/Projects/Blackjack/Blackjack/GameUI/GameUI.csproj",
   "expectedPackageFiles": [
     "/Users/yigitkatircioglu/.nuget/packages/googlegson/2.9.1.1/googlegson.2.9.1.1.nupkg.sha512",
     "/Users/yigitkatircioglu/.nuget/packages/microsoft.extensions.configuration/7.0.0/microsoft.extensions.configuration.7.0.0.nupkg.sha512",
