@@ -34,6 +34,9 @@
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -50,6 +53,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="2.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -125,6 +129,12 @@
 	  <None Remove="Resources\Images\Card_back_01.svg.png" />
 	  <None Remove="Resources\Images\card_back.svg" />
 	  <None Remove="Resources\AppIcon\blackjack.svg" />
+	  <None Remove="Resources\Images\table.jpg" />
+	  <None Remove="Resources\Sounds\fail-144746.mp3" />
+	  <None Remove="Resources\Sounds\cashier-quotka-chingquot-sound-effect-129698.mp3" />
+	  <None Remove="Resources\Raw\lose.mp3" />
+	  <None Remove="Resources\Raw\win.mp3" />
+	  <None Remove="Resources\Raw\shuffle-cards.mp3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\sinek_2.svg" />
@@ -194,5 +204,9 @@
 	  <BundleResource Include="Resources\Images\queen_of_spades2.svg" />
 	  <BundleResource Include="Resources\Images\black_joker.svg" />
 	  <BundleResource Include="Resources\Images\card_back.svg" />
+	  <BundleResource Include="Resources\Images\table.jpg" />
+	  <BundleResource Include="Resources\Raw\lose.mp3" />
+	  <BundleResource Include="Resources\Raw\win.mp3" />
+	  <BundleResource Include="Resources\Raw\shuffle-cards.mp3" />
 	</ItemGroup>
 </Project>
