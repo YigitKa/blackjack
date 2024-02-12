@@ -1,3 +1,4 @@
-
 ConsoleTest/obj/*
 GameUI/bin/*
+GameUI/obj/*
+*.zip
