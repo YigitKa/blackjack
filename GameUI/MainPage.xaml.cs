@@ -189,10 +189,9 @@ public partial class MainPage : ContentPage
         kartCekButonu.IsEnabled = durButonu.IsEnabled = false;
         oyunuBaslat.IsEnabled = true;
 
-
-        player.Play();
+        player?.Play(); // null check gerekiyor. hata vermiyor. 
         bilgiLabel.Text = $"Oyuncu: {oyuncuSkor}\nKurpiyer: {kurpiyerSkor}\nBakiye: {bakiye}";
-
+        
         _ = DisplayAlert("Oyun Bitti", $"{e.KazanmaDurumu}\r\nOyuncu Puanı: {e.OyuncuPuan}\r\nKurpiyer Puanı: {e.KurpiyerPuan}", "Tamam");
     }
 
