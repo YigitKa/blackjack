@@ -21,7 +21,7 @@ public partial class MainPage : ContentPage
 
     int kurpiyerSkor = 0;
     int oyuncuSkor = 0;
-    int bakiye = 0;
+    decimal bakiye = 0;
     private bool _sesAcikMi = true;
     private bool sesAcikMi
     {
@@ -40,7 +40,7 @@ public partial class MainPage : ContentPage
     {
         Text = "Dur",
         IsEnabled = false,
-        WidthRequest = 200,
+        WidthRequest = 150,
         HorizontalOptions = LayoutOptions.Center,
         VerticalOptions = LayoutOptions.Center,
         Margin = new Thickness(10)
@@ -50,7 +50,7 @@ public partial class MainPage : ContentPage
     {
         Text = "Kart İste",
         IsEnabled = false,
-        WidthRequest = 200,
+        WidthRequest = 150,
         HorizontalOptions = LayoutOptions.Center,
         VerticalOptions = LayoutOptions.Center,
         Margin = new Thickness(10)
@@ -59,7 +59,7 @@ public partial class MainPage : ContentPage
     Button oyunuBaslat = new Button
     {
         Text = "Oyunu Başlat",
-        WidthRequest = 200,
+        WidthRequest = 150,
         HorizontalOptions = LayoutOptions.Center,
         VerticalOptions = LayoutOptions.Center,
         Margin = new Thickness(10),
@@ -68,7 +68,7 @@ public partial class MainPage : ContentPage
     Button sesKontrol = new Button
     {
         Text = "Sesi Kapat",
-        WidthRequest = 200,
+        WidthRequest = 150,
         HorizontalOptions = LayoutOptions.Center,
         VerticalOptions = LayoutOptions.Center,
         Margin = new Thickness(10),
@@ -145,7 +145,7 @@ public partial class MainPage : ContentPage
             oyuncuKartlarYatay.Children.Clear();
             oyuncu.Kartlar = new List<Kart>();
             kurpiyer.Kartlar = new List<Kart>();
-            oyuncu.BahisKoy(Convert.ToInt32(bahis));
+            oyuncu.BahisKoy(Convert.ToDecimal(bahis));
             if (sesAcikMi)
             {
                 IAudioPlayer player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("shuffle-cards.mp3"));

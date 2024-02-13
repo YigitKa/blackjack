@@ -11,7 +11,7 @@ namespace GameCore
 
     public class Oyuncu
     {
-        public int Bahis { get; set; }
+        public decimal Bahis { get; set; }
         public List<Kart> Kartlar { get; set; }
         public int Puan { get; private set; }
 
@@ -24,7 +24,7 @@ namespace GameCore
             Bahis = baslangicBahis;
         }
 
-        public void BahisKoy(int miktar)
+        public void BahisKoy(decimal miktar)
         {
             if (miktar > 0)
             {
