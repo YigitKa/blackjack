@@ -22,6 +22,19 @@ public partial class MainPage : ContentPage
     int kurpiyerSkor = 0;
     int oyuncuSkor = 0;
     int bakiye = 0;
+    private bool _sesAcikMi = true;
+    private bool sesAcikMi
+    {
+        get
+        {
+            return _sesAcikMi;
+        }
+        set
+        {
+            _sesAcikMi = value;
+            sesKontrol.Text = value ? "Sesi Kapat" : "Sesi Aç";
+        }
+    } 
 
     Button durButonu = new Button
     {
@@ -52,6 +65,14 @@ public partial class MainPage : ContentPage
         Margin = new Thickness(10),
     };
 
+    Button sesKontrol = new Button
+    {
+        Text = "Sesi Kapat",
+        WidthRequest = 200,
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.Center,
+        Margin = new Thickness(10),
+    };
 
     Label bilgiLabel = new Label
     {
@@ -114,6 +135,7 @@ public partial class MainPage : ContentPage
         bottomBar.Children.Add(oyunuBaslat);
         bottomBar.Children.Add(kartCekButonu);
         bottomBar.Children.Add(durButonu);
+        bottomBar.Children.Add(sesKontrol);
 
         oyunuBaslat.Clicked += async (sender, e) =>
         {
@@ -124,9 +146,11 @@ public partial class MainPage : ContentPage
             oyuncu.Kartlar = new List<Kart>();
             kurpiyer.Kartlar = new List<Kart>();
             oyuncu.BahisKoy(Convert.ToInt32(bahis));
-
-            IAudioPlayer player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("shuffle-cards.mp3"));
-            player.Play();
+            if (sesAcikMi)
+            {
+                IAudioPlayer player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("shuffle-cards.mp3"));
+                player.Play();
+            }
             // Deste oluşturulur.
             deste = Kart.DesteOlustur();
 
@@ -157,9 +181,15 @@ public partial class MainPage : ContentPage
             oyun.OyunuBitir(oyuncu, kurpiyer);
         };
 
+        sesKontrol.Clicked += (sender, e) =>
+        {
+            sesAcikMi = !sesAcikMi;
+        };
+
         Content = grid;
     }
 
+    
     private async void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
     {
         Image image = new Image();
@@ -196,7 +226,11 @@ public partial class MainPage : ContentPage
         kartCekButonu.IsEnabled = durButonu.IsEnabled = false;
         oyunuBaslat.IsEnabled = true;
 
-        player?.Play(); // null check gerekiyor. hata vermiyor. 
+        if (sesAcikMi)
+        {
+            player?.Play(); // null check gerekiyor. hata vermiyor. 
+        }
+
         bilgiLabel.Text = $"Oyuncu: {oyuncuSkor}\nKurpiyer: {kurpiyerSkor}\nBakiye: {bakiye}";
         
         _ = DisplayAlert("Oyun Bitti", $"{blackjackMessage}{e.KazanmaDurumu}\r\nOyuncu Kartları Puanı: {e.OyuncuPuan}\r\nKurpiyer Kartları Puanı: {e.KurpiyerPuan}", "Tamam");
