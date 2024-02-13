@@ -131,6 +131,7 @@ public partial class MainPage : ContentPage
             deste = Kart.DesteOlustur();
 
             oyun.Oyna(deste, oyuncu, kurpiyer);
+
             kartCekButonu.IsEnabled = durButonu.IsEnabled = true;
             oyunuBaslat.IsEnabled = false;
         };
@@ -166,7 +167,7 @@ public partial class MainPage : ContentPage
 
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
-
+        string blackjackMessage = string.Empty;
         kurpiyerKartlarYatay.Children[0] = image;
         IAudioPlayer player = null;
 
@@ -184,6 +185,12 @@ public partial class MainPage : ContentPage
                 break;
             case KazanmaDurumu.Beraberlik:
                 break;
+            case KazanmaDurumu.OyuncuBlackjackYapti:
+                player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("applause.mp3"));
+                bakiye = bakiye + (oyuncu.Bahis * 2);
+                blackjackMessage = "TEBRİKLER! Blackjack yaptın!!";
+                oyuncuSkor++;
+                break;
         }
 
         kartCekButonu.IsEnabled = durButonu.IsEnabled = false;
@@ -192,7 +199,7 @@ public partial class MainPage : ContentPage
         player?.Play(); // null check gerekiyor. hata vermiyor. 
         bilgiLabel.Text = $"Oyuncu: {oyuncuSkor}\nKurpiyer: {kurpiyerSkor}\nBakiye: {bakiye}";
         
-        _ = DisplayAlert("Oyun Bitti", $"{e.KazanmaDurumu}\r\nOyuncu Puanı: {e.OyuncuPuan}\r\nKurpiyer Puanı: {e.KurpiyerPuan}", "Tamam");
+        _ = DisplayAlert("Oyun Bitti", $"{blackjackMessage}{e.KazanmaDurumu}\r\nOyuncu Kartları Puanı: {e.OyuncuPuan}\r\nKurpiyer Kartları Puanı: {e.KurpiyerPuan}", "Tamam");
     }
 
     private void Kurpiyer_KartCekildi(object sender, Kurpiyer.KartCekildiEventArgs e)

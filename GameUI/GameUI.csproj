@@ -32,6 +32,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
+	  <CodesignKey>Apple Development: Yiğit Katırcıoğlu (D72YN68V9K)</CodesignKey>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
@@ -135,6 +136,7 @@
 	  <None Remove="Resources\Raw\lose.mp3" />
 	  <None Remove="Resources\Raw\win.mp3" />
 	  <None Remove="Resources\Raw\shuffle-cards.mp3" />
+	  <None Remove="Resources\Raw\applause.mp3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\sinek_2.svg" />
@@ -208,5 +210,6 @@
 	  <BundleResource Include="Resources\Raw\lose.mp3" />
 	  <BundleResource Include="Resources\Raw\win.mp3" />
 	  <BundleResource Include="Resources\Raw\shuffle-cards.mp3" />
+	  <BundleResource Include="Resources\Raw\applause.mp3" />
 	</ItemGroup>
 </Project>

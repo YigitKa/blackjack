@@ -19,7 +19,8 @@ namespace GameCore
     {
         OyuncuKazandi,
         KurpiyerKazandi,
-        Beraberlik
+        Beraberlik,
+        OyuncuBlackjackYapti
     }
 
     public class Blackjack
@@ -38,12 +39,18 @@ namespace GameCore
 
             // Oyun başlangıcında event tetiklenir.
             OyunBasladi?.Invoke(this, EventArgs.Empty);
+
+            // oyuncu blackjack yaptı
+            if (oyuncu.Kartlar.Count == 2 && oyuncu.Puan == 21)
+            {
+                OyunuBitir(oyuncu, kurpiyer);
+            }
         }
 
         public void OyunuBitir(Oyuncu oyuncu, Kurpiyer kurpiyer)
         {
             // Oyunun kazananı belirlenir ve event tetiklenir.
-            KazanmaDurumu kazanmaDurumu = KazanmaDurumunuBelirle(oyuncu.Puan, kurpiyer.Puan);
+            KazanmaDurumu kazanmaDurumu = KazanmaDurumunuBelirle(oyuncu, kurpiyer);
             OyunBitti?.Invoke(this, new OyunBittiEventArgs
             {
                 KazanmaDurumu = kazanmaDurumu,
@@ -52,21 +59,25 @@ namespace GameCore
             });
         }
 
-        public KazanmaDurumu KazanmaDurumunuBelirle(int oyuncuPuan, int kurpiyerPuan)
+        private KazanmaDurumu KazanmaDurumunuBelirle(Oyuncu oyuncu, Kurpiyer kurpiyer)
         {
-            if (oyuncuPuan > 21)
+            if (oyuncu.Kartlar.Count == 2 && oyuncu.Puan == 21)
+            {
+                return KazanmaDurumu.OyuncuBlackjackYapti;
+            }
+            else if (oyuncu.Puan > 21)
             {
                 return KazanmaDurumu.KurpiyerKazandi;
             }
-            else if (kurpiyerPuan > 21)
+            else if (kurpiyer.Puan > 21)
             {
                 return KazanmaDurumu.OyuncuKazandi;
             }
-            else if (oyuncuPuan > kurpiyerPuan)
+            else if (oyuncu.Puan > kurpiyer.Puan)
             {
                 return KazanmaDurumu.OyuncuKazandi;
             }
-            else if (kurpiyerPuan > oyuncuPuan)
+            else if (kurpiyer.Puan > oyuncu.Puan)
             {
                 return KazanmaDurumu.KurpiyerKazandi;
             }
