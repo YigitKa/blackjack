@@ -124,11 +124,39 @@ public partial class MainPage : ContentPage
         FontSize = 25,
     };
 
+    IAudioPlayer _playerAnalog;
+    IAudioPlayer _playerShuffleCards;
+    IAudioPlayer _playerFlipCard;
+    IAudioPlayer _playerWin;
+    IAudioPlayer _playerLose;
+    IAudioPlayer _playerGasp;
+    IAudioPlayer _playerApplause;
+
+    private async void LoadSounds()
+    {
+        try
+        {
+            _playerAnalog = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("analog_click.mp3"));
+            _playerShuffleCards = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("shuffle-cards.mp3"));
+            _playerFlipCard = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("flipcard.mp3"));
+            _playerWin = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("win.mp3"));
+            _playerLose = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("lose.mp3"));
+            _playerGasp = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("gasp.mp3"));
+            _playerApplause = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("applause.mp3"));
+        }
+        catch (Exception ex)
+        {
+            ;
+        }
+    }
+
     public MainPage(IAudioManager audioManager)
     {
         this.BackgroundImageSource = ImageSource.FromFile("table.jpg");
 
         this.audioManager = audioManager;
+        LoadSounds();
+
 
         // Oyun başlangıcında bahis alınır.
         oyuncu.KartCekildi += Oyuncu_KartCekildi;
@@ -177,11 +205,16 @@ public partial class MainPage : ContentPage
         // Butonlar
         VerticalStackLayout oyunuBaslatView = new VerticalStackLayout() { Margin = 10 };
         var tapGestureRecognizer = new TapGestureRecognizer();
-        tapGestureRecognizer.Tapped += async (s, e) =>
+        tapGestureRecognizer.Tapped +=  async (s, e) =>
         {
             if (!oyunuBaslatLabel.IsEnabled && !oyunuBaslatImage.IsEnabled)
             {
                 return;
+            }
+
+            if (sesAcikMi)
+            {
+                _playerAnalog.Play();
             }
             var bahis = await DisplayPromptAsync("Bahis Gir", "Oynanacak bahis miktarını girin:", "OK", "Cancel", "100", -1, Keyboard.Numeric, "100");
 
@@ -192,14 +225,12 @@ public partial class MainPage : ContentPage
             oyuncu.BahisKoy(Convert.ToDecimal(bahis));
             if (sesAcikMi)
             {
-                IAudioPlayer player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("shuffle-cards.mp3"));
-                player.Play();
+                _playerShuffleCards.Play();
             }
             // Deste oluşturulur.
             deste = Kart.DesteOlustur();
 
             oyun.Oyna(deste, oyuncu, kurpiyer);
-            await Task.Yield();
 
             kartCekLabel.IsEnabled = kartCekImage.IsEnabled = durLabel.IsEnabled = durImage.IsEnabled = true;
             oyunuBaslatLabel.IsEnabled = oyunuBaslatImage.IsEnabled = false;
@@ -220,6 +251,10 @@ public partial class MainPage : ContentPage
             if (oyunuBaslatLabel.IsEnabled && oyunuBaslatImage.IsEnabled)
             {
                 return;
+            }
+            if (sesAcikMi)
+            {
+                _playerFlipCard.Play();
             }
 
             oyuncu.KartCek(deste);
@@ -242,6 +277,10 @@ public partial class MainPage : ContentPage
             {
                 return;
             }
+            if (sesAcikMi)
+            {
+                _playerAnalog.Play();
+            }
             while (kurpiyer.Puan < 17)
             {
                 kurpiyer.KartCek(deste);
@@ -258,6 +297,11 @@ public partial class MainPage : ContentPage
         var sesKontrolRecognizer = new TapGestureRecognizer();
         sesKontrolRecognizer.Tapped += (s, e) =>
         {
+            if (sesAcikMi)
+            {
+                _playerAnalog.Play();
+            }
+
             sesAcikMi = !_sesAcikMi;
         };
 
@@ -291,21 +335,23 @@ public partial class MainPage : ContentPage
         switch (e.KazanmaDurumu)
         {
             case KazanmaDurumu.OyuncuKazandi:
-                player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("win.mp3"));
+                player = _playerWin;
                 bakiye = bakiye + oyuncu.Bahis;
                 playerMessage = "Tebrikler. Kazandın!!";
                 oyuncuSkor++;
                 break;
             case KazanmaDurumu.KurpiyerKazandi:
-                player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("lose.mp3"));
+                player = _playerLose;
                 bakiye -= oyuncu.Bahis;
                 playerMessage = "Üzgünüm. Kaybettin!!";
                 kurpiyerSkor++;
                 break;
             case KazanmaDurumu.Beraberlik:
+                player = _playerGasp;
+                playerMessage = "Beraberlik!!";
                 break;
             case KazanmaDurumu.OyuncuBlackjackYapti:
-                player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("applause.mp3"));
+                player = _playerApplause;
                 bakiye = bakiye + (oyuncu.Bahis * 2);
                 playerMessage = "TEBRİKLER! Blackjack yaptın!!";
                 oyuncuSkor++;
@@ -328,7 +374,7 @@ public partial class MainPage : ContentPage
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
         image.Source = ImageSource.FromFile($"card_back.png");
-        image.Margin = new Thickness(5);
+        image.Margin = new Thickness(10);
         if (kurpiyer.Kartlar.Count > 1)
         {
             image.Source = ImageSource.FromFile($"{e.CekilenKart.ToString().ToLower().Replace(" ", "_")}.png");
@@ -341,7 +387,7 @@ public partial class MainPage : ContentPage
     {
         Image image = new Image();
         image.Source = ImageSource.FromFile($"{e.CekilenKart.ToString().ToLower().Replace(" ", "_")}.png");
-        image.Margin = new Thickness(5);
+        image.Margin = new Thickness(10);
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
 

@@ -154,6 +154,9 @@
 	  <None Remove="Resources\Images\sound_off.svg" />
 	  <None Remove="Resources\Images\stop.svg" />
 	  <None Remove="Resources\Images\card_icon.svg" />
+	  <None Remove="Resources\Raw\analog_click.mp3" />
+	  <None Remove="Resources\Raw\flipcard.mp3" />
+	  <None Remove="Resources\Raw\gasp.mp3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\sinek_2.svg" />
@@ -233,5 +236,8 @@
 	  <BundleResource Include="Resources\Images\sound_off.svg" />
 	  <BundleResource Include="Resources\Images\stop.svg" />
 	  <BundleResource Include="Resources\Images\card_icon.svg" />
+	  <BundleResource Include="Resources\Raw\analog_click.mp3" />
+	  <BundleResource Include="Resources\Raw\flipcard.mp3" />
+	  <BundleResource Include="Resources\Raw\gasp.mp3" />
 	</ItemGroup>
 </Project>
