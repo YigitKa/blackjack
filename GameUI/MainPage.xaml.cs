@@ -53,7 +53,7 @@ public partial class MainPage : ContentPage
         Source = "stop.png",
         IsEnabled = false,
         WidthRequest = 125,
-        HeightRequest = 100,
+        HeightRequest = 150,
         Margin = -10
     };
 
@@ -74,7 +74,7 @@ public partial class MainPage : ContentPage
         Source = "card_icon.png",
         IsEnabled = false,
         WidthRequest = 125,
-        HeightRequest = 100,
+        HeightRequest = 150,
         Margin = -10
     };
 
@@ -93,7 +93,7 @@ public partial class MainPage : ContentPage
         Source = "bet.png",
         IsEnabled = true,
         WidthRequest = 125,
-        HeightRequest = 100,
+        HeightRequest = 150,
         Margin = -10
     };
 
@@ -103,23 +103,25 @@ public partial class MainPage : ContentPage
         WidthRequest = 125,
         HeightRequest = 50,
         FontSize = 25,
-        HorizontalTextAlignment = TextAlignment.Center,
-        VerticalTextAlignment = TextAlignment.Center,
+        HorizontalOptions = LayoutOptions.End,
+        VerticalOptions = LayoutOptions.End,
+        HorizontalTextAlignment = TextAlignment.End,
+        VerticalTextAlignment = TextAlignment.End,
     };
 
     ImageButton sesKontrolImage = new ImageButton
     {
         Source = "sound_on.png",
         WidthRequest = 125,
-        HeightRequest = 100,
+        HeightRequest = 150,
+        HorizontalOptions = LayoutOptions.End,
+        VerticalOptions = LayoutOptions.End,
         Margin = -10
     };
 
     Label bilgiLabel = new Label
     {
         Text = "Oyuncu: 0\nKurpiyer: 0\nBakiye: 0",
-        HorizontalOptions = LayoutOptions.Center,
-        VerticalOptions = LayoutOptions.Center,
         Margin = new Thickness(10),
         FontSize = 25,
     };
@@ -156,7 +158,6 @@ public partial class MainPage : ContentPage
 
         this.audioManager = audioManager;
         LoadSounds();
-
 
         // Oyun başlangıcında bahis alınır.
         oyuncu.KartCekildi += Oyuncu_KartCekildi;
