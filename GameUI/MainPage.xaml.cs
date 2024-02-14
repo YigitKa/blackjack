@@ -48,7 +48,7 @@ public partial class MainPage : ContentPage
         VerticalTextAlignment = TextAlignment.Center,
     };
 
-    Image durImage = new Image
+    ImageButton durImage = new ImageButton
     {
         Source = "stop.png",
         IsEnabled = false,
@@ -69,7 +69,7 @@ public partial class MainPage : ContentPage
     };
 
 
-    Image kartCekImage = new Image
+    ImageButton kartCekImage = new ImageButton
     {
         Source = "card_icon.png",
         IsEnabled = false,
@@ -88,7 +88,7 @@ public partial class MainPage : ContentPage
         VerticalTextAlignment = TextAlignment.Center,
     };
 
-    Image oyunuBaslatImage = new Image
+    ImageButton oyunuBaslatImage = new ImageButton
     {
         Source = "bet.png",
         IsEnabled = true,
@@ -107,7 +107,7 @@ public partial class MainPage : ContentPage
         VerticalTextAlignment = TextAlignment.Center,
     };
 
-    Image sesKontrolImage = new Image
+    ImageButton sesKontrolImage = new ImageButton
     {
         Source = "sound_on.png",
         WidthRequest = 125,
@@ -203,6 +203,9 @@ public partial class MainPage : ContentPage
 
             kartCekLabel.IsEnabled = kartCekImage.IsEnabled = durLabel.IsEnabled = durImage.IsEnabled = true;
             oyunuBaslatLabel.IsEnabled = oyunuBaslatImage.IsEnabled = false;
+            oyunuBaslatImage.Opacity = 50;
+            durImage.Opacity = 100;
+            kartCekImage.Opacity = 100;
         };
 
         oyunuBaslatView.Add(oyunuBaslatImage);
@@ -325,7 +328,7 @@ public partial class MainPage : ContentPage
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
         image.Source = ImageSource.FromFile($"card_back.png");
-
+        image.Margin = new Thickness(5);
         if (kurpiyer.Kartlar.Count > 1)
         {
             image.Source = ImageSource.FromFile($"{e.CekilenKart.ToString().ToLower().Replace(" ", "_")}.png");
@@ -338,7 +341,7 @@ public partial class MainPage : ContentPage
     {
         Image image = new Image();
         image.Source = ImageSource.FromFile($"{e.CekilenKart.ToString().ToLower().Replace(" ", "_")}.png");
-
+        image.Margin = new Thickness(5);
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
 

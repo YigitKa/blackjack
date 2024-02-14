@@ -1,39 +1,33 @@
 ﻿<Properties StartupConfiguration="{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}|Default">
-  <MonoDevelop.Ide.ItemProperties.GameCore PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.GameUI PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.GameUI PreferredExecutionTarget="Android.Pixel_3a_API_33_x86_64" />
   <DisabledProjects>
     <String>Blackjack/Blackjack.csproj</String>
   </DisabledProjects>
+  <MonoDevelop.Ide.ItemProperties.Blackjack PreferredExecutionTarget="MonoDevelop.Default" />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="Android.Pixel_3a_API_33_x86_64" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GameUI/Platforms/Android/AndroidManifest.xml">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../usr/local/share/dotnet/sdk/8.0.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets">
     <Files>
-      <File FileName="GameUI/obj/Debug/net7.0-android/AndroidManifest.xml" Line="30" Column="3" />
-      <File FileName="GameUI/Platforms/Android/AndroidManifest.xml" />
+      <File FileName="GameUI/MainPage.xaml.cs" Line="206" Column="43" />
+      <File FileName="../../../../../usr/local/share/dotnet/sdk/8.0.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="266" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Blackjack" expanded="True">
-            <Node name="GameUI" expanded="True">
-              <Node name="Platforms" expanded="True">
-                <Node name="Android" expanded="True">
-                  <Node name="AndroidManifest.xml" selected="True" />
-                </Node>
-              </Node>
+            <Node name="GameUI" selected="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State>
-          <Value> e.CekilenKart.ToString().Replace(" ", "_")</Value>
-          <Value>$"{e.CekilenKart.ToString().Replace(" ", "_")}.svg"</Value>
-        </State>
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.GameCore PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
