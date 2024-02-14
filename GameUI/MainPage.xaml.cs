@@ -32,46 +32,87 @@ public partial class MainPage : ContentPage
         set
         {
             _sesAcikMi = value;
-            sesKontrol.Text = value ? "Sesi Kapat" : "Sesi Aç";
+            sesKontrolLabel.Text = value ? "Sesi Kapat" : "Sesi Aç";
+            sesKontrolImage.Source = value ? "sound_on.png" : "sound_off.png";
         }
-    } 
+    }
 
-    Button durButonu = new Button
+    Label durLabel = new Label
     {
         Text = "Dur",
         IsEnabled = false,
-        WidthRequest = 150,
-        HorizontalOptions = LayoutOptions.Center,
-        VerticalOptions = LayoutOptions.Center,
-        Margin = new Thickness(10)
+        WidthRequest = 125,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
     };
 
-    Button kartCekButonu = new Button
+    Image durImage = new Image
+    {
+        Source = "stop.png",
+        IsEnabled = false,
+        WidthRequest = 125,
+        HeightRequest = 100,
+        Margin = -10
+    };
+
+    Label kartCekLabel = new Label
     {
         Text = "Kart İste",
         IsEnabled = false,
-        WidthRequest = 150,
-        HorizontalOptions = LayoutOptions.Center,
-        VerticalOptions = LayoutOptions.Center,
-        Margin = new Thickness(10)
+        WidthRequest = 125,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
     };
 
-    Button oyunuBaslat = new Button
+
+    Image kartCekImage = new Image
     {
-        Text = "Oyunu Başlat",
-        WidthRequest = 150,
-        HorizontalOptions = LayoutOptions.Center,
-        VerticalOptions = LayoutOptions.Center,
-        Margin = new Thickness(10),
+        Source = "card_icon.png",
+        IsEnabled = false,
+        WidthRequest = 125,
+        HeightRequest = 100,
+        Margin = -10
     };
 
-    Button sesKontrol = new Button
+    Label oyunuBaslatLabel = new Label
+    {
+        Text = "Bahis Koy",
+        WidthRequest = 125,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    Image oyunuBaslatImage = new Image
+    {
+        Source = "bet.png",
+        IsEnabled = true,
+        WidthRequest = 125,
+        HeightRequest = 100,
+        Margin = -10
+    };
+
+    Label sesKontrolLabel = new Label
     {
         Text = "Sesi Kapat",
-        WidthRequest = 150,
-        HorizontalOptions = LayoutOptions.Center,
-        VerticalOptions = LayoutOptions.Center,
-        Margin = new Thickness(10),
+        WidthRequest = 125,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    Image sesKontrolImage = new Image
+    {
+        Source = "sound_on.png",
+        WidthRequest = 125,
+        HeightRequest = 100,
+        Margin = -10
     };
 
     Label bilgiLabel = new Label
@@ -105,7 +146,9 @@ public partial class MainPage : ContentPage
                 new RowDefinition { Height = GridLength.Auto },
                 new RowDefinition { Height = GridLength.Star },
                 new RowDefinition { Height = GridLength.Auto }
-            }
+            },
+            Margin = 20,
+
         };
         Blackjack oyun = new Blackjack();
         oyun.OyunBasladi += Oyun_OyunBasladi;
@@ -132,13 +175,14 @@ public partial class MainPage : ContentPage
         bottomBar.VerticalOptions = LayoutOptions.Center;
 
         // Butonlar
-        bottomBar.Children.Add(oyunuBaslat);
-        bottomBar.Children.Add(kartCekButonu);
-        bottomBar.Children.Add(durButonu);
-        bottomBar.Children.Add(sesKontrol);
-
-        oyunuBaslat.Clicked += async (sender, e) =>
+        VerticalStackLayout oyunuBaslatView = new VerticalStackLayout() { Margin = 10 };
+        var tapGestureRecognizer = new TapGestureRecognizer();
+        tapGestureRecognizer.Tapped += async (s, e) =>
         {
+            if (!oyunuBaslatLabel.IsEnabled && !oyunuBaslatImage.IsEnabled)
+            {
+                return;
+            }
             var bahis = await DisplayPromptAsync("Bahis Gir", "Oynanacak bahis miktarını girin:", "OK", "Cancel", "100", -1, Keyboard.Numeric, "100");
 
             kurpiyerKartlarYatay.Children.Clear();
@@ -155,41 +199,79 @@ public partial class MainPage : ContentPage
             deste = Kart.DesteOlustur();
 
             oyun.Oyna(deste, oyuncu, kurpiyer);
+            await Task.Yield();
 
-            kartCekButonu.IsEnabled = durButonu.IsEnabled = true;
-            oyunuBaslat.IsEnabled = false;
+            kartCekLabel.IsEnabled = kartCekImage.IsEnabled = durLabel.IsEnabled = durImage.IsEnabled = true;
+            oyunuBaslatLabel.IsEnabled = oyunuBaslatImage.IsEnabled = false;
         };
 
-        // Butonlara tıklama olayları
-        kartCekButonu.Clicked += (sender, e) =>
-        {
-            oyuncu.KartCek(deste);
+        oyunuBaslatView.Add(oyunuBaslatImage);
+        oyunuBaslatView.Add(oyunuBaslatLabel);
+        oyunuBaslatImage.GestureRecognizers.Add(tapGestureRecognizer);
+        oyunuBaslatView.GestureRecognizers.Add(tapGestureRecognizer);
 
+        VerticalStackLayout kartCekView = new VerticalStackLayout() { Margin = 10 };
+        var kartCekRecognizer = new TapGestureRecognizer();
+        kartCekRecognizer.Tapped += (s, e) =>
+        {
+            if (oyunuBaslatLabel.IsEnabled && oyunuBaslatImage.IsEnabled)
+            {
+                return;
+            }
+
+            oyuncu.KartCek(deste);
             if (oyuncu.Puan > 21)
             {
                 oyun.OyunuBitir(oyuncu, kurpiyer);
             }
         };
 
-        durButonu.Clicked += (sender, e) =>
+        kartCekView.Add(kartCekImage);
+        kartCekView.Add(kartCekLabel);
+        kartCekImage.GestureRecognizers.Add(kartCekRecognizer);
+        kartCekView.GestureRecognizers.Add(kartCekRecognizer);
+
+        VerticalStackLayout durView = new VerticalStackLayout() { Margin = 10 };
+        var durRecognizer = new TapGestureRecognizer();
+        durRecognizer.Tapped += (s, e) =>
         {
+            if (oyunuBaslatLabel.IsEnabled && oyunuBaslatImage.IsEnabled)
+            {
+                return;
+            }
             while (kurpiyer.Puan < 17)
             {
                 kurpiyer.KartCek(deste);
             }
-
             oyun.OyunuBitir(oyuncu, kurpiyer);
         };
 
-        sesKontrol.Clicked += (sender, e) =>
+        durView.Add(durImage);
+        durView.Add(durLabel);
+        durImage.GestureRecognizers.Add(durRecognizer);
+        durView.GestureRecognizers.Add(durRecognizer);
+
+        VerticalStackLayout sesKontrolView = new VerticalStackLayout() { Margin = 10 };
+        var sesKontrolRecognizer = new TapGestureRecognizer();
+        sesKontrolRecognizer.Tapped += (s, e) =>
         {
-            sesAcikMi = !sesAcikMi;
+            sesAcikMi = !_sesAcikMi;
         };
+
+        sesKontrolView.Add(sesKontrolImage);
+        sesKontrolView.Add(sesKontrolLabel);
+        sesKontrolImage.GestureRecognizers.Add(sesKontrolRecognizer);
+        sesKontrolView.GestureRecognizers.Add(sesKontrolRecognizer);
+
+        bottomBar.Children.Add(oyunuBaslatView);
+        bottomBar.Children.Add(kartCekView);
+        bottomBar.Children.Add(durView);
+        bottomBar.Children.Add(sesKontrolView);
 
         Content = grid;
     }
 
-    
+
     private async void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
     {
         Image image = new Image();
@@ -197,20 +279,24 @@ public partial class MainPage : ContentPage
 
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
-        string blackjackMessage = string.Empty;
+        string playerMessage = string.Empty;
         kurpiyerKartlarYatay.Children[0] = image;
         IAudioPlayer player = null;
-
+        await Task.Yield();
+        kartCekLabel.IsEnabled = kartCekImage.IsEnabled = durLabel.IsEnabled = durImage.IsEnabled = false;
+        oyunuBaslatLabel.IsEnabled = oyunuBaslatImage.IsEnabled = true;
         switch (e.KazanmaDurumu)
         {
             case KazanmaDurumu.OyuncuKazandi:
                 player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("win.mp3"));
                 bakiye = bakiye + oyuncu.Bahis;
+                playerMessage = "Tebrikler. Kazandın!!";
                 oyuncuSkor++;
                 break;
             case KazanmaDurumu.KurpiyerKazandi:
                 player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("lose.mp3"));
                 bakiye -= oyuncu.Bahis;
+                playerMessage = "Üzgünüm. Kaybettin!!";
                 kurpiyerSkor++;
                 break;
             case KazanmaDurumu.Beraberlik:
@@ -218,13 +304,10 @@ public partial class MainPage : ContentPage
             case KazanmaDurumu.OyuncuBlackjackYapti:
                 player = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("applause.mp3"));
                 bakiye = bakiye + (oyuncu.Bahis * 2);
-                blackjackMessage = "TEBRİKLER! Blackjack yaptın!!";
+                playerMessage = "TEBRİKLER! Blackjack yaptın!!";
                 oyuncuSkor++;
                 break;
         }
-
-        kartCekButonu.IsEnabled = durButonu.IsEnabled = false;
-        oyunuBaslat.IsEnabled = true;
 
         if (sesAcikMi)
         {
@@ -232,8 +315,8 @@ public partial class MainPage : ContentPage
         }
 
         bilgiLabel.Text = $"Oyuncu: {oyuncuSkor}\nKurpiyer: {kurpiyerSkor}\nBakiye: {bakiye}";
-        
-        _ = DisplayAlert("Oyun Bitti", $"{blackjackMessage}{e.KazanmaDurumu}\r\nOyuncu Kartları Puanı: {e.OyuncuPuan}\r\nKurpiyer Kartları Puanı: {e.KurpiyerPuan}", "Tamam");
+
+        _ = DisplayAlert("Oyun Bitti", $"{playerMessage}\r\nOyuncu Kartları Puanı: {e.OyuncuPuan}\r\nKurpiyer Kartları Puanı: {e.KurpiyerPuan}", "Tamam");
     }
 
     private void Kurpiyer_KartCekildi(object sender, Kurpiyer.KartCekildiEventArgs e)

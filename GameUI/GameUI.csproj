@@ -137,6 +137,11 @@
 	  <None Remove="Resources\Raw\win.mp3" />
 	  <None Remove="Resources\Raw\shuffle-cards.mp3" />
 	  <None Remove="Resources\Raw\applause.mp3" />
+	  <None Remove="Resources\Images\bet.svg" />
+	  <None Remove="Resources\Images\sound_on.svg" />
+	  <None Remove="Resources\Images\sound_off.svg" />
+	  <None Remove="Resources\Images\stop.svg" />
+	  <None Remove="Resources\Images\card_icon.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\sinek_2.svg" />
@@ -211,5 +216,10 @@
 	  <BundleResource Include="Resources\Raw\win.mp3" />
 	  <BundleResource Include="Resources\Raw\shuffle-cards.mp3" />
 	  <BundleResource Include="Resources\Raw\applause.mp3" />
+	  <BundleResource Include="Resources\Images\bet.svg" />
+	  <BundleResource Include="Resources\Images\sound_on.svg" />
+	  <BundleResource Include="Resources\Images\sound_off.svg" />
+	  <BundleResource Include="Resources\Images\stop.svg" />
+	  <BundleResource Include="Resources\Images\card_icon.svg" />
 	</ItemGroup>
 </Project>

@@ -3,3 +3,6 @@ GameUI/bin/*
 GameUI/obj/*
 *.zip
 GameCore/obj/*
+*.dll
+*.pdb
+*.json
