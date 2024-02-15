@@ -8,20 +8,36 @@ namespace GameCore
 
     public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
     public delegate void KartCekildiEventHandler(object sender, KartCekildiEventArgs e);
+    public delegate void SplitYapildiEventHandler(object sender, EventArgs e);
 
     public class Oyuncu
     {
         public decimal Bahis { get; set; }
+        public decimal SplitBahis { get; set; }
         public List<Kart> Kartlar { get; set; }
+        public List<Kart> SplitKartlar { get; set; }
         public int Puan { get; private set; }
 
         public event KartCekildiEventHandler KartCekildi;
         public event PuanHesaplandiEventHandler PuanHesaplandi;
+        public event SplitYapildiEventHandler SplitYapildi;
 
         public Oyuncu(int baslangicBahis)
         {
             Kartlar = new List<Kart>();
             Bahis = baslangicBahis;
+        }
+
+        public void SplitYap()
+        {
+            // oyuncuda 2 adet kart olması ve kartların değerlerinin aynı olması gerekmektedir
+            if (Kartlar.Count == 2 && Kartlar[0].Deger == Kartlar[1].Deger)
+            {
+                SplitKartlar = new List<Kart> { Kartlar[1] };
+                Kartlar.Remove(Kartlar[1]);
+                SplitYapildi?.Invoke(this, new EventArgs());
+                SplitBahis = Bahis;
+            }
         }
 
         public void BahisKoy(decimal miktar)
