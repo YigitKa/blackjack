@@ -1,9 +1,14 @@
-﻿
+
 namespace GameCore
 {
     public class KartCekildiEventArgs : EventArgs
     {
         public Kart CekilenKart { get; set; }
+    }
+
+    public class SolitYapildiEventArgs : EventArgs
+    {
+     // todo
     }
 
     public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
