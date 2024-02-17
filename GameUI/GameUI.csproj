@@ -158,6 +158,7 @@
 	  <None Remove="Resources\Images\kupa_vale_2.svg" />
 	  <None Remove="Resources\Images\maca_vale_2.svg" />
 	  <None Remove="Resources\Images\sword.svg" />
+	  <None Remove="Resources\Images\split.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\sinek_2.svg" />
@@ -241,5 +242,6 @@
 	  <BundleResource Include="Resources\Images\kupa_vale_2.svg" />
 	  <BundleResource Include="Resources\Images\maca_vale_2.svg" />
 	  <BundleResource Include="Resources\Images\sword.svg" />
+	  <BundleResource Include="Resources\Images\split.svg" />
 	</ItemGroup>
 </Project>

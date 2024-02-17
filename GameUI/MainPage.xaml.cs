@@ -113,7 +113,7 @@ public partial class MainPage : ContentPage
 
     ImageButton splitImage = new ImageButton
     {
-        Source = "sword.png",
+        Source = "split.png",
         IsEnabled = true,
         WidthRequest = 125,
         HeightRequest = 150,
@@ -225,7 +225,7 @@ public partial class MainPage : ContentPage
 
         grid.Add(bottomBar, 0, 3);
         bottomBar.HorizontalOptions = LayoutOptions.Center;
-        bottomBar.VerticalOptions = LayoutOptions.Center;
+        bottomBar.VerticalOptions = LayoutOptions.EndAndExpand;
 
         // Butonlar
         VerticalStackLayout oyunuBaslatView = new VerticalStackLayout() { Margin = 10 };
@@ -338,7 +338,7 @@ public partial class MainPage : ContentPage
         bottomBar.Children.Add(oyunuBaslatView);
         bottomBar.Children.Add(kartCekView);
         bottomBar.Children.Add(durView);
-        bottomBar.Children.Add(sesKontrolView);
+       // TODO: tepeye taşınacak (ya da menu) bottomBar.Children.Add(sesKontrolView);
 
         Content = grid;
     }
