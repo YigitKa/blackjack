@@ -21,29 +21,14 @@ public class Kurpiyer
         Kartlar = new List<Kart>();
     }
 
-    public void KartCek(List<Kart> deste, bool ilkKart = false)
+    public void KartCek(List<Kart> deste)
     {
-        if (!ilkKart)
-        {
-            Kart kart = Kart.RastgeleCek(deste);
-            Kartlar.Add(kart);
+        Kart kart = Kart.RastgeleCek(deste);
+        Kartlar.Add(kart);
 
-            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
-        }
-
+        KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
         PuanHesapla();
-
-        if (Puan < 17 && !ilkKart)
-        {
-            Kart kart = Kart.RastgeleCek(deste);
-            Kartlar.Add(kart);
-
-            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
-
-            PuanHesapla();
-        }
     }
-
 
     public void PuanHesapla()
     {

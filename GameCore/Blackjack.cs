@@ -34,7 +34,7 @@ namespace GameCore
             // İlk iki kart dağıtılır.
             oyuncu.KartCek(deste);
             oyuncu.KartCek(deste);
-            kurpiyer.KartCek(deste, true);
+            kurpiyer.KartCek(deste);
             kurpiyer.KartCek(deste);
 
             // Oyun başlangıcında event tetiklenir.
