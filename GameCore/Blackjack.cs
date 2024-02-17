@@ -23,67 +23,85 @@ namespace GameCore
         OyuncuBlackjackYapti
     }
 
+    public class BitenOyun
+    {
+        public List<Kart> Deste { get; set; }
+        public Oyuncu Oyuncu { get; set; }
+        public Kurpiyer Kurpiyer { get; set; }
+        public KazanmaDurumu Sonuc { get; set; }
+    }
+
     public class Blackjack
     {
         public event OyunBasladiEventHandler OyunBasladi;
         public event OyunBittiEventHandler OyunBitti;
         public bool oyunuBitir = false;
+        public List<BitenOyun> BitenOyunlar = new List<BitenOyun>();
+        List<Kart> _deste;
+        Oyuncu _oyuncu;
+        Kurpiyer _kurpiyer;
 
         public void Oyna(List<Kart> deste, Oyuncu oyuncu, Kurpiyer kurpiyer)
         {
+            _deste = deste;
+            _oyuncu = oyuncu;
+            _kurpiyer = kurpiyer;
+
             // İlk iki kart dağıtılır.
-            oyuncu.KartCek(deste);
-            oyuncu.KartCek(deste);
-            kurpiyer.KartCek(deste);
-            kurpiyer.KartCek(deste);
+            _oyuncu.KartCek(_deste);
+            _oyuncu.KartCek(_deste);
+            _kurpiyer.KartCek(_deste);
+            _kurpiyer.KartCek(_deste);
 
             // Oyun başlangıcında event tetiklenir.
             OyunBasladi?.Invoke(this, EventArgs.Empty);
 
             // oyuncu blackjack yaptı
-            if (oyuncu.Kartlar.Count == 2 && oyuncu.Puan == 21)
+            if (_oyuncu.Kartlar.Count == 2 && oyuncu.Puan == 21)
             {
-                OyunuBitir(oyuncu, kurpiyer);
+                OyunuBitir();
             }
         }
 
-        public void OyunuBitir(Oyuncu oyuncu, Kurpiyer kurpiyer)
+        public void OyunuBitir()
         {
             // Oyunun kazananı belirlenir ve event tetiklenir.
-            KazanmaDurumu kazanmaDurumu = KazanmaDurumunuBelirle(oyuncu, kurpiyer);
+            KazanmaDurumu kazanmaDurumu = KazanmaDurumunuBelirle();
             OyunBitti?.Invoke(this, new OyunBittiEventArgs
             {
                 KazanmaDurumu = kazanmaDurumu,
-                OyuncuPuan = oyuncu.Puan,
-                KurpiyerPuan = kurpiyer.Puan
+                OyuncuPuan = _oyuncu.Puan,
+                KurpiyerPuan = _kurpiyer.Puan
             });
+
+            BitenOyunlar.Add(new BitenOyun {Deste = _deste, Kurpiyer = _kurpiyer, Oyuncu = _oyuncu, Sonuc = kazanmaDurumu });
         }
 
-        private KazanmaDurumu KazanmaDurumunuBelirle(Oyuncu oyuncu, Kurpiyer kurpiyer)
+        private KazanmaDurumu KazanmaDurumunuBelirle()
         {
-            if (oyuncu.Kartlar.Count == 2 && oyuncu.Puan == 21)
+            if (_oyuncu.Kartlar.Count == 2 && _oyuncu.Puan == 21)
             {
-                oyuncu.ToplamKasa = oyuncu.ToplamKasa + (oyuncu.Bahis * 2);
+                _oyuncu.ToplamKasa = _oyuncu.ToplamKasa + (_oyuncu.Bahis * 2);
                 return KazanmaDurumu.OyuncuBlackjackYapti;
             }
-            else if (oyuncu.Puan > 21)
+            else if (_oyuncu.Puan > 21)
             {
-                oyuncu.ToplamKasa = oyuncu.ToplamKasa - oyuncu.Bahis;
+                _oyuncu.ToplamKasa = _oyuncu.ToplamKasa - _oyuncu.Bahis;
                 return KazanmaDurumu.KurpiyerKazandi;
             }
-            else if (kurpiyer.Puan > 21)
+            else if (_kurpiyer.Puan > 21)
             {
-                oyuncu.ToplamKasa = oyuncu.ToplamKasa + oyuncu.Bahis;
+                _oyuncu.ToplamKasa = _oyuncu.ToplamKasa + _oyuncu.Bahis;
                 return KazanmaDurumu.OyuncuKazandi;
             }
-            else if (oyuncu.Puan > kurpiyer.Puan)
+            else if (_oyuncu.Puan > _kurpiyer.Puan)
             {
-                oyuncu.ToplamKasa = oyuncu.ToplamKasa + oyuncu.Bahis;
+                _oyuncu.ToplamKasa = _oyuncu.ToplamKasa + _oyuncu.Bahis;
                 return KazanmaDurumu.OyuncuKazandi;
             }
-            else if (kurpiyer.Puan > oyuncu.Puan)
+            else if (_kurpiyer.Puan > _oyuncu.Puan)
             {
-                oyuncu.ToplamKasa = oyuncu.ToplamKasa - oyuncu.Bahis;
+                _oyuncu.ToplamKasa = _oyuncu.ToplamKasa - _oyuncu.Bahis;
                 return KazanmaDurumu.KurpiyerKazandi;
             }
             else

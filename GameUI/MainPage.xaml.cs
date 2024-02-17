@@ -177,8 +177,8 @@ public partial class MainPage : ContentPage
                 new RowDefinition { Height = GridLength.Auto }
             },
             Margin = 20,
-
         };
+
         Blackjack oyun = new Blackjack();
         oyun.OyunBasladi += Oyun_OyunBasladi;
         oyun.OyunBitti += Oyun_OyunBitti;
@@ -261,7 +261,7 @@ public partial class MainPage : ContentPage
             oyuncu.KartCek(deste);
             if (oyuncu.Puan > 21)
             {
-                oyun.OyunuBitir(oyuncu, kurpiyer);
+                oyun.OyunuBitir();
             }
         };
 
@@ -286,7 +286,7 @@ public partial class MainPage : ContentPage
             {
                 kurpiyer.KartCek(deste);
             }
-            oyun.OyunuBitir(oyuncu, kurpiyer);
+            oyun.OyunuBitir();
         };
 
         durView.Add(durImage);
