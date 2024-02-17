@@ -6,18 +6,20 @@ namespace GameCore
         public Kart CekilenKart { get; set; }
     }
 
-    public class SolitYapildiEventArgs : EventArgs
+    public class SplitYapildiEventArgs : EventArgs
     {
-     // todo
+        public List<Kart> Kartlar { get; set; }
+        public List<Kart> SplitKartlar { get; set; }
     }
 
     public delegate void PuanHesaplandiEventHandler(object sender, EventArgs e);
     public delegate void KartCekildiEventHandler(object sender, KartCekildiEventArgs e);
-    public delegate void SplitYapildiEventHandler(object sender, EventArgs e);
+    public delegate void SplitYapildiEventHandler(object sender, SplitYapildiEventArgs e);
 
     public class Oyuncu
     {
         public decimal Bahis { get; set; }
+        public decimal ToplamKasa { get; set; }
         public decimal SplitBahis { get; set; }
         public List<Kart> Kartlar { get; set; }
         public List<Kart> SplitKartlar { get; set; }
@@ -40,7 +42,7 @@ namespace GameCore
             {
                 SplitKartlar = new List<Kart> { Kartlar[1] };
                 Kartlar.Remove(Kartlar[1]);
-                SplitYapildi?.Invoke(this, new EventArgs());
+                SplitYapildi?.Invoke(this, new SplitYapildiEventArgs { Kartlar = Kartlar, SplitKartlar = SplitKartlar});
                 SplitBahis = Bahis;
             }
         }
@@ -53,29 +55,10 @@ namespace GameCore
             }
         }
 
-        public void KazanmaDurumunaGoreIslemYap(KazanmaDurumu kazanmaDurumu)
-        {
-            switch (kazanmaDurumu)
-            {
-                case KazanmaDurumu.OyuncuKazandi:
-                    Bahis *= 2;
-                    Console.WriteLine("Kazandınız! Bahsiniz iki katına çıktı: " + Bahis);
-                    break;
-                case KazanmaDurumu.KurpiyerKazandi:
-                    Bahis = 0;
-                    Console.WriteLine("Kaybettiniz. Bahsinizi kaybettiniz.");
-                    break;
-                case KazanmaDurumu.Beraberlik:
-                    Console.WriteLine("Beraberlik! Bahsiniz iade edildi.");
-                    break;
-            }
-        }
-
         public void KartCek(List<Kart> deste)
         {
             Kart kart = Kart.RastgeleCek(deste);
             Kartlar.Add(kart);
-
 
             PuanHesapla();
 

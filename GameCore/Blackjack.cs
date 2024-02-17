@@ -63,22 +63,27 @@ namespace GameCore
         {
             if (oyuncu.Kartlar.Count == 2 && oyuncu.Puan == 21)
             {
+                oyuncu.ToplamKasa = oyuncu.ToplamKasa + (oyuncu.Bahis * 2);
                 return KazanmaDurumu.OyuncuBlackjackYapti;
             }
             else if (oyuncu.Puan > 21)
             {
+                oyuncu.ToplamKasa = oyuncu.ToplamKasa - oyuncu.Bahis;
                 return KazanmaDurumu.KurpiyerKazandi;
             }
             else if (kurpiyer.Puan > 21)
             {
+                oyuncu.ToplamKasa = oyuncu.ToplamKasa + oyuncu.Bahis;
                 return KazanmaDurumu.OyuncuKazandi;
             }
             else if (oyuncu.Puan > kurpiyer.Puan)
             {
+                oyuncu.ToplamKasa = oyuncu.ToplamKasa + oyuncu.Bahis;
                 return KazanmaDurumu.OyuncuKazandi;
             }
             else if (kurpiyer.Puan > oyuncu.Puan)
             {
+                oyuncu.ToplamKasa = oyuncu.ToplamKasa - oyuncu.Bahis;
                 return KazanmaDurumu.KurpiyerKazandi;
             }
             else
