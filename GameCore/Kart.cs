@@ -15,9 +15,9 @@ namespace GameCore
         Sekiz = 8,
         Dokuz = 9,
         On = 10,
-        Vale,
-        Kralice,
-        Papaz
+        Vale = 10,
+        Kralice = 10,
+        Papaz = 10
     }
 
     public enum Renk
@@ -104,15 +104,6 @@ namespace GameCore
                     break;
                 case KartDegeri.On:
                     degerStr = "10";
-                    break;
-                case KartDegeri.Vale:
-                    degerStr = "Vale";
-                    break;
-                case KartDegeri.Kralice:
-                    degerStr = "Kralice";
-                    break;
-                case KartDegeri.Papaz:
-                    degerStr = "Papaz";
                     break;
             }
 

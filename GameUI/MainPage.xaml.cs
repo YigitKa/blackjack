@@ -19,6 +19,10 @@ public partial class MainPage : ContentPage
     Kurpiyer kurpiyer = new Kurpiyer();
     List<Kart> deste;
 
+    Guid splitViewGuid = new Guid();
+
+    Blackjack oyun = new Blackjack();
+
     int kurpiyerSkor = 0;
     int oyuncuSkor = 0;
     decimal bakiye = 0;
@@ -97,6 +101,25 @@ public partial class MainPage : ContentPage
         Margin = -10
     };
 
+    Label splitLabel = new Label
+    {
+        Text = "Böl",
+        WidthRequest = 125,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    ImageButton splitImage = new ImageButton
+    {
+        Source = "sword.png",
+        IsEnabled = true,
+        WidthRequest = 125,
+        HeightRequest = 150,
+        Margin = -10
+    };
+
     Label sesKontrolLabel = new Label
     {
         Text = "Sesi Kapat",
@@ -161,6 +184,7 @@ public partial class MainPage : ContentPage
 
         // Oyun başlangıcında bahis alınır.
         oyuncu.KartCekildi += Oyuncu_KartCekildi;
+        oyuncu.SplitYapildi += Oyuncu_SplitYapildi;
         kurpiyer.KartCekildi += Kurpiyer_KartCekildi;
         // Oyun oynanır.
         var grid = new Grid
@@ -171,15 +195,15 @@ public partial class MainPage : ContentPage
             },
             RowDefinitions =
             {
-                new RowDefinition { Height = GridLength.Star },
                 new RowDefinition { Height = GridLength.Auto },
                 new RowDefinition { Height = GridLength.Star },
-                new RowDefinition { Height = GridLength.Auto }
+                new RowDefinition { Height = GridLength.Star },
+                new RowDefinition { Height = GridLength.Star }
             },
             Margin = 20,
         };
 
-        Blackjack oyun = new Blackjack();
+        oyun = new Blackjack();
         oyun.OyunBasladi += Oyun_OyunBasladi;
         oyun.OyunBitti += Oyun_OyunBitti;
         // Kurpiyer kartları
@@ -319,6 +343,10 @@ public partial class MainPage : ContentPage
         Content = grid;
     }
 
+    private void Oyuncu_SplitYapildi(object sender, SplitYapildiEventArgs e)
+    {
+
+    }
 
     private async void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
     {
@@ -393,6 +421,39 @@ public partial class MainPage : ContentPage
         image.HorizontalOptions = LayoutOptions.Center;
 
         oyuncuKartlarYatay.Children.Add(image);
+
+
+        if (oyuncu.Kartlar.Count == 2 && (int)oyuncu.Kartlar[0].Deger == (int)oyuncu.Kartlar[1].Deger)
+        {
+            VerticalStackLayout splitYapView = new VerticalStackLayout() { Margin = 10 };
+            splitViewGuid = splitYapView.Id;
+            var sesKontrolRecognizer = new TapGestureRecognizer();
+            sesKontrolRecognizer.Tapped += (s, e) =>
+            {
+                if (sesAcikMi)
+                {
+                    _playerFlipCard.Play();
+                }
+
+                oyuncu.SplitYap();
+            };
+
+            splitYapView.Add(splitImage);
+            splitYapView.Add(splitLabel);
+            splitImage.GestureRecognizers.Add(sesKontrolRecognizer);
+            splitYapView.GestureRecognizers.Add(sesKontrolRecognizer);
+            bottomBar.Children.Add(splitYapView);
+        }
+        else
+        {
+            for (int i = 0; i < bottomBar.Children.Count; i++)
+            {
+                if ((bottomBar.Children[i] as StackBase).Id == splitViewGuid)
+                {
+                    bottomBar.Remove(bottomBar.Children[i]);
+                }
+            }
+        }
     }
 
     private void Oyun_OyunBasladi(object sender, EventArgs e)
