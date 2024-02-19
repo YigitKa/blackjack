@@ -1,26 +1,19 @@
 ﻿<Properties StartupConfiguration="{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.GameUI PreferredExecutionTarget="Android.Pixel_3a_API_33_x86_64" />
   <DisabledProjects>
     <String>Blackjack/Blackjack.csproj</String>
   </DisabledProjects>
-  <MonoDevelop.Ide.ItemProperties.Blackjack PreferredExecutionTarget="MonoDevelop.Default" />
-  <Xamarin.Addins.Core.Project ActiveDebugTarget="Android.Pixel_3a_API_33_x86_64" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../usr/local/share/dotnet/sdk/8.0.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameUI/MainPage.xaml.cs">
     <Files>
-      <File FileName="GameUI/MainPage.xaml.cs" Line="206" Column="43" />
-      <File FileName="../../../../../usr/local/share/dotnet/sdk/8.0.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="266" Column="5" />
+      <File FileName="GameUI/MainPage.xaml.cs" Line="429" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Blackjack" expanded="True">
-            <Node name="GameUI" selected="True">
-              <Node name="Dependencies" expanded="True" />
+            <Node name="GameUI" expanded="True" selected="True">
               <Node name="MainPage.xaml" expanded="True" />
             </Node>
           </Node>
@@ -28,6 +21,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.GameUI PreferredExecutionTarget="MyAppleMacCatalystID" />
   <MonoDevelop.Ide.ItemProperties.GameCore PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
 </Properties>

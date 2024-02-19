@@ -35,7 +35,6 @@ namespace GameCore
     {
         public event OyunBasladiEventHandler OyunBasladi;
         public event OyunBittiEventHandler OyunBitti;
-        public bool oyunuBitir = false;
         public List<BitenOyun> BitenOyunlar = new List<BitenOyun>();
         List<Kart> _deste;
         Oyuncu _oyuncu;

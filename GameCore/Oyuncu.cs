@@ -21,6 +21,7 @@ namespace GameCore
         public decimal Bahis { get; set; }
         public decimal ToplamKasa { get; set; }
         public decimal SplitBahis { get; set; }
+        public bool SplitYapabilir { get; set; }
         public List<Kart> Kartlar { get; set; }
         public List<Kart> SplitKartlar { get; set; }
         public int Puan { get; private set; }
@@ -38,7 +39,7 @@ namespace GameCore
         public void SplitYap()
         {
             // oyuncuda 2 adet kart olması ve kartların değerlerinin aynı olması gerekmektedir
-            if (Kartlar.Count == 2 && Kartlar[0].Deger == Kartlar[1].Deger)
+            if (SplitYapabilir)
             {
                 SplitKartlar = new List<Kart> { Kartlar[1] };
                 Kartlar.Remove(Kartlar[1]);
@@ -61,6 +62,11 @@ namespace GameCore
             Kartlar.Add(kart);
 
             PuanHesapla();
+
+            if (Kartlar.Count == 2 && Kartlar[0].Deger == Kartlar[1].Deger)
+            {
+                SplitYapabilir = true;
+            }
 
             KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
         }

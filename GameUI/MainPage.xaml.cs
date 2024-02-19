@@ -1,5 +1,5 @@
-﻿using GameCore;
-using Plugin.Maui.Audio;
+﻿using Plugin.Maui.Audio;
+using GameCore;
 
 namespace GameUI;
 
@@ -11,6 +11,7 @@ public partial class MainPage : ContentPage
     StackLayout oyuncuKartlariStackLayout = new StackLayout();
 
     HorizontalStackLayout oyuncuKartlarYatay = new HorizontalStackLayout();
+    HorizontalStackLayout oyuncuSplitKartlarYatay = new HorizontalStackLayout();
     HorizontalStackLayout kurpiyerKartlarYatay = new HorizontalStackLayout();
     HorizontalStackLayout bottomBar = new HorizontalStackLayout();
 
@@ -178,7 +179,7 @@ public partial class MainPage : ContentPage
     public MainPage(IAudioManager audioManager)
     {
         this.BackgroundImageSource = ImageSource.FromFile("table.jpg");
-
+        
         this.audioManager = audioManager;
         LoadSounds();
 
@@ -225,7 +226,7 @@ public partial class MainPage : ContentPage
 
         grid.Add(bottomBar, 0, 3);
         bottomBar.HorizontalOptions = LayoutOptions.Center;
-        bottomBar.VerticalOptions = LayoutOptions.EndAndExpand;
+        bottomBar.VerticalOptions = LayoutOptions.End;
 
         // Butonlar
         VerticalStackLayout oyunuBaslatView = new VerticalStackLayout() { Margin = 10 };
@@ -345,7 +346,12 @@ public partial class MainPage : ContentPage
 
     private void Oyuncu_SplitYapildi(object sender, SplitYapildiEventArgs e)
     {
+        oyuncuSplitKartlarYatay.HorizontalOptions = LayoutOptions.Center;
+        oyuncuSplitKartlarYatay.VerticalOptions = LayoutOptions.Center;
+        oyuncuSplitKartlarYatay.Add(oyuncuKartlarYatay[0]);
+        oyuncuKartlarYatay.RemoveAt(0);
 
+        oyuncuKartlariStackLayout.Children.Add(oyuncuSplitKartlarYatay);
     }
 
     private async void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
@@ -422,8 +428,7 @@ public partial class MainPage : ContentPage
 
         oyuncuKartlarYatay.Children.Add(image);
 
-
-        if (oyuncu.Kartlar.Count == 2 && (int)oyuncu.Kartlar[0].Deger == (int)oyuncu.Kartlar[1].Deger)
+        if (oyuncu.SplitYapabilir)
         {
             VerticalStackLayout splitYapView = new VerticalStackLayout() { Margin = 10 };
             splitViewGuid = splitYapView.Id;
