@@ -25,6 +25,7 @@ namespace GameCore
         public List<Kart> Kartlar { get; set; }
         public List<Kart> SplitKartlar { get; set; }
         public int Puan { get; private set; }
+        public int SplitPuan { get; private set; }
 
         public event KartCekildiEventHandler KartCekildi;
         public event PuanHesaplandiEventHandler PuanHesaplandi;
@@ -99,6 +100,32 @@ namespace GameCore
             }
 
             Puan = puan;
+
+            puan = 0;
+            asVar = false;
+            foreach (Kart kart in SplitKartlar)
+            {
+                if (kart.Deger == KartDegeri.As)
+                {
+                    asVar = true;
+                    puan += 1;
+                }
+                else if ((int)kart.Deger <= 10)
+                {
+                    puan += (int)kart.Deger;
+                }
+                else
+                {
+                    puan += 10;
+                }
+            }
+
+            if (asVar && puan <= 11)
+            {
+                puan += 10;
+            }
+
+            SplitPuan = puan;
             PuanHesaplandi?.Invoke(this, EventArgs.Empty);
         }
     }

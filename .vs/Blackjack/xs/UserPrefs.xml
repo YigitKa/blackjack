@@ -1,30 +1,32 @@
 ﻿<Properties StartupConfiguration="{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}|Default">
-  <DisabledProjects>
-    <String>Blackjack/Blackjack.csproj</String>
-  </DisabledProjects>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
   <MonoDevelop.Ide.Workbench ActiveDocument="GameUI/MainPage.xaml.cs">
     <Files>
-      <File FileName="GameUI/MainPage.xaml.cs" Line="429" Column="1" />
+      <File FileName="GameUI/MainPage.xaml.cs" Line="15" Column="78" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Blackjack" expanded="True">
-            <Node name="GameUI" expanded="True" selected="True">
-              <Node name="MainPage.xaml" expanded="True" />
+            <Node name="GameUI" expanded="True">
+              <Node name="MainPage.xaml" expanded="True">
+                <Node name="MainPage.xaml.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.GameCore PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.GameUI PreferredExecutionTarget="MyAppleMacCatalystID" />
-  <MonoDevelop.Ide.ItemProperties.GameCore PreferredExecutionTarget="MonoDevelop.Default" />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <DisabledProjects>
+    <String>Blackjack/Blackjack.csproj</String>
+  </DisabledProjects>
 </Properties>

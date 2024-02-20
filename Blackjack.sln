@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCore", "GameCore\GameCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUI", "GameUI\GameUI.csproj", "{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blackjack", "ConsoleTest\Blackjack.csproj", "{83265D13-F5B7-4EED-94BD-E4A0B85810B0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F900B6FD-4A96-4295-A5D0-F97FBAE87ED0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83265D13-F5B7-4EED-94BD-E4A0B85810B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
