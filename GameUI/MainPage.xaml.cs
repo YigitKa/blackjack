@@ -508,8 +508,8 @@ public partial class MainPage : ContentPage
 
             VerticalStackLayout splitYapView = new VerticalStackLayout() { Margin = 10 };
             splitViewGuid = splitYapView.Id;
-            var sesKontrolRecognizer = new TapGestureRecognizer();
-            sesKontrolRecognizer.Tapped += (s, e) =>
+            var splitRecognizer = new TapGestureRecognizer();
+            splitRecognizer.Tapped += (s, e) =>
             {
                 if (sesAcikMi)
                 {
@@ -521,8 +521,8 @@ public partial class MainPage : ContentPage
 
             splitYapView.Add(splitImage);
             splitYapView.Add(splitLabel);
-            splitImage.GestureRecognizers.Add(sesKontrolRecognizer);
-            splitYapView.GestureRecognizers.Add(sesKontrolRecognizer);
+            splitImage.GestureRecognizers.Add(splitRecognizer);
+            splitYapView.GestureRecognizers.Add(splitRecognizer);
             bottomBar.Children.Add(splitYapView);
         }
         else
