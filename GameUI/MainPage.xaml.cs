@@ -7,6 +7,7 @@ public partial class MainPage : ContentPage
 {
     private readonly IAudioManager audioManager;
 
+    HorizontalStackLayout bilgiPaneliYatay = new HorizontalStackLayout();
     StackLayout kurpiyerKartlariStackLayout = new StackLayout();
     StackLayout oyuncuKartlariStackLayout = new StackLayout();
 
@@ -41,6 +42,60 @@ public partial class MainPage : ContentPage
             sesKontrolImage.Source = value ? "sound_on.png" : "sound_off.png";
         }
     }
+
+    Label kasaLabel = new Label
+    {
+        Text = "0",
+        WidthRequest = 50,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    ImageButton kasaImage = new ImageButton
+    {
+        Source = "kasa.png",
+        WidthRequest = 75,
+        HeightRequest = 50,
+        Margin = -10
+    };
+
+    Label oyuncuPuanLabel = new Label
+    {
+        Text = "0",
+        WidthRequest = 50,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    ImageButton oyuncuPuanImage = new ImageButton
+    {
+        Source = "oyuncu.png",
+        WidthRequest = 75,
+        HeightRequest = 50,
+        Margin = -10
+    };
+
+    Label kurpiyerPuanLabel = new Label
+    {
+        Text = "0",
+        WidthRequest = 50,
+        HeightRequest = 50,
+        FontSize = 25,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    ImageButton kurpiyerPuanImage = new ImageButton
+    {
+        Source = "kurpiyer.png",
+        WidthRequest = 75,
+        HeightRequest = 50,
+        Margin = -10
+    };
 
     Label durLabel = new Label
     {
@@ -143,13 +198,6 @@ public partial class MainPage : ContentPage
         Margin = -10
     };
 
-    Label bilgiLabel = new Label
-    {
-        Text = "Oyuncu: 0\nKurpiyer: 0\nBakiye: 0",
-        Margin = new Thickness(10),
-        FontSize = 25,
-    };
-
     IAudioPlayer _playerAnalog;
     IAudioPlayer _playerShuffleCards;
     IAudioPlayer _playerFlipCard;
@@ -207,22 +255,40 @@ public partial class MainPage : ContentPage
         oyun = new Blackjack();
         oyun.OyunBasladi += Oyun_OyunBasladi;
         oyun.OyunBitti += Oyun_OyunBitti;
+
+        bilgiPaneliYatay.HorizontalOptions = LayoutOptions.Center;
+        bilgiPaneliYatay.VerticalOptions = LayoutOptions.End;
+
+        VerticalStackLayout kurpiyerPuanView = new VerticalStackLayout() { Margin = 10 };
+        kurpiyerPuanView.Add(kurpiyerPuanImage);
+        kurpiyerPuanView.Add(kurpiyerPuanLabel);
+        bilgiPaneliYatay.Children.Add(kurpiyerPuanView);
+
+        VerticalStackLayout oyuncuPuanView = new VerticalStackLayout() { Margin = 10 };
+        oyuncuPuanView.Add(oyuncuPuanImage);
+        oyuncuPuanView.Add(oyuncuPuanLabel);
+        bilgiPaneliYatay.Children.Add(oyuncuPuanView);
+
+        VerticalStackLayout kasaView = new VerticalStackLayout() { Margin = 10 };
+        kasaView.Add(kasaImage);
+        kasaView.Add(kasaLabel);
+        bilgiPaneliYatay.Children.Add(kasaView);
+
+        grid.Add(bilgiPaneliYatay,0,0);
+
         // Kurpiyer kartları
-        grid.Add(kurpiyerKartlariStackLayout, 0, 0);
+        grid.Add(kurpiyerKartlariStackLayout, 0, 1);
         kurpiyerKartlariStackLayout.Children.Add(new Label { Text = "Kurpiyer Kartları", FontSize = 20, HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center });
         kurpiyerKartlariStackLayout.Children.Add(kurpiyerKartlarYatay);
         kurpiyerKartlarYatay.HorizontalOptions = LayoutOptions.Center;
         kurpiyerKartlarYatay.VerticalOptions = LayoutOptions.Center;
 
         // Oyuncu kartları
-        grid.Add(oyuncuKartlariStackLayout, 0, 1);
+        grid.Add(oyuncuKartlariStackLayout, 0, 2);
         oyuncuKartlariStackLayout.Children.Add(new Label { Text = "Oyuncu Kartları", FontSize = 20, HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center });
         oyuncuKartlariStackLayout.Children.Add(oyuncuKartlarYatay);
         oyuncuKartlarYatay.HorizontalOptions = LayoutOptions.Center;
         oyuncuKartlarYatay.VerticalOptions = LayoutOptions.Center;
-
-        // Bilgi alanı
-        grid.Add(bilgiLabel, 0, 2);
 
         grid.Add(bottomBar, 0, 3);
         bottomBar.HorizontalOptions = LayoutOptions.Center;
@@ -398,7 +464,9 @@ public partial class MainPage : ContentPage
             player?.Play(); // null check gerekiyor. hata vermiyor. 
         }
 
-        bilgiLabel.Text = $"Oyuncu: {oyuncuSkor}\nKurpiyer: {kurpiyerSkor}\nBakiye: {bakiye}";
+        oyuncuPuanLabel.Text = $"{oyuncuSkor}";
+        kurpiyerPuanLabel.Text = $"{kurpiyerSkor}";
+        kasaLabel.Text = $"{bakiye}";
 
         _ = DisplayAlert("Oyun Bitti", $"{playerMessage}\r\nOyuncu Kartları Puanı: {e.OyuncuPuan}\r\nKurpiyer Kartları Puanı: {e.KurpiyerPuan}", "Tamam");
     }
@@ -430,6 +498,14 @@ public partial class MainPage : ContentPage
 
         if (oyuncu.SplitYapabilir)
         {
+            for (int i = 0; i < bottomBar.Children.Count; i++)
+            {
+                if ((bottomBar.Children[i] as StackBase).Id == splitViewGuid)
+                {
+                    return;
+                }
+            }
+
             VerticalStackLayout splitYapView = new VerticalStackLayout() { Margin = 10 };
             splitViewGuid = splitYapView.Id;
             var sesKontrolRecognizer = new TapGestureRecognizer();

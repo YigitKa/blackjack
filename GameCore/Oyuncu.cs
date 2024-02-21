@@ -34,6 +34,7 @@ namespace GameCore
         public Oyuncu(int baslangicBahis)
         {
             Kartlar = new List<Kart>();
+            SplitKartlar = new List<Kart>();
             Bahis = baslangicBahis;
         }
 
@@ -55,6 +56,7 @@ namespace GameCore
             {
                 Bahis = miktar;
             }
+            SplitYapabilir = false;
         }
 
         public void KartCek(List<Kart> deste)
