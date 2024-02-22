@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
 
     HorizontalStackLayout bilgiPaneliYatay = new HorizontalStackLayout();
     StackLayout kurpiyerKartlariStackLayout = new StackLayout();
-    StackLayout oyuncuKartlariStackLayout = new StackLayout();
+    HorizontalStackLayout oyuncuKartlariStackLayout = new HorizontalStackLayout();
 
     HorizontalStackLayout oyuncuKartlarYatay = new HorizontalStackLayout();
     HorizontalStackLayout oyuncuSplitKartlarYatay = new HorizontalStackLayout();
@@ -46,7 +46,7 @@ public partial class MainPage : ContentPage
     Label kasaLabel = new Label
     {
         Text = "0",
-        WidthRequest = 50,
+        WidthRequest = 100,
         HeightRequest = 50,
         FontSize = 25,
         HorizontalTextAlignment = TextAlignment.Center,
@@ -414,10 +414,31 @@ public partial class MainPage : ContentPage
     {
         oyuncuSplitKartlarYatay.HorizontalOptions = LayoutOptions.Center;
         oyuncuSplitKartlarYatay.VerticalOptions = LayoutOptions.Center;
-        oyuncuSplitKartlarYatay.Add(oyuncuKartlarYatay[0]);
-        oyuncuKartlarYatay.RemoveAt(0);
+        oyuncuKartlarYatay.Clear();
 
         oyuncuKartlariStackLayout.Children.Add(oyuncuSplitKartlarYatay);
+
+        foreach (Kart kart in oyuncu.Kartlar)
+        {
+            Image image = new Image();
+            image.Source = ImageSource.FromFile($"{kart.ToString().ToLower().Replace(" ", "_")}.png");
+            image.Margin = new Thickness(10);
+            image.HeightRequest = 200;
+            image.HorizontalOptions = LayoutOptions.Center;
+
+            oyuncuKartlarYatay.Children.Add(image);
+        }
+
+        foreach (Kart kart in oyuncu.SplitKartlar)
+        {
+            Image image = new Image();
+            image.Source = ImageSource.FromFile($"{kart.ToString().ToLower().Replace(" ", "_")}.png");
+            image.Margin = new Thickness(10);
+            image.HeightRequest = 200;
+            image.HorizontalOptions = LayoutOptions.Center;
+
+            oyuncuSplitKartlarYatay.Children.Add(image);
+        }
     }
 
     private async void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
@@ -430,7 +451,6 @@ public partial class MainPage : ContentPage
         string playerMessage = string.Empty;
         kurpiyerKartlarYatay.Children[0] = image;
         IAudioPlayer player = null;
-        await Task.Yield();
         kartCekLabel.IsEnabled = kartCekImage.IsEnabled = durLabel.IsEnabled = durImage.IsEnabled = false;
         oyunuBaslatLabel.IsEnabled = oyunuBaslatImage.IsEnabled = true;
         switch (e.KazanmaDurumu)
@@ -494,7 +514,14 @@ public partial class MainPage : ContentPage
         image.HeightRequest = 200;
         image.HorizontalOptions = LayoutOptions.Center;
 
-        oyuncuKartlarYatay.Children.Add(image);
+        if (e.SplitKartMi)
+        {
+            oyuncuSplitKartlarYatay.Children.Add(image);
+        }
+        else
+        {
+            oyuncuKartlarYatay.Children.Add(image);
+        }
 
         if (oyuncu.SplitYapabilir)
         {

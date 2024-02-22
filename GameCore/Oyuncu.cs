@@ -4,6 +4,7 @@ namespace GameCore
     public class KartCekildiEventArgs : EventArgs
     {
         public Kart CekilenKart { get; set; }
+        public bool SplitKartMi { get; set; } = false;
     }
 
     public class SplitYapildiEventArgs : EventArgs
@@ -22,6 +23,7 @@ namespace GameCore
         public decimal ToplamKasa { get; set; }
         public decimal SplitBahis { get; set; }
         public bool SplitYapabilir { get; set; }
+        public bool SplitYapiyor { get; set; }
         public List<Kart> Kartlar { get; set; }
         public List<Kart> SplitKartlar { get; set; }
         public int Puan { get; private set; }
@@ -45,8 +47,9 @@ namespace GameCore
             {
                 SplitKartlar = new List<Kart> { Kartlar[1] };
                 Kartlar.Remove(Kartlar[1]);
-                SplitYapildi?.Invoke(this, new SplitYapildiEventArgs { Kartlar = Kartlar, SplitKartlar = SplitKartlar});
                 SplitBahis = Bahis;
+                SplitYapiyor = true;
+                SplitYapildi?.Invoke(this, new SplitYapildiEventArgs { Kartlar = Kartlar, SplitKartlar = SplitKartlar});
             }
         }
 
@@ -57,12 +60,26 @@ namespace GameCore
                 Bahis = miktar;
             }
             SplitYapabilir = false;
+            SplitYapiyor = false;
         }
 
         public void KartCek(List<Kart> deste)
         {
+            bool splitKartMi = false;
             Kart kart = Kart.RastgeleCek(deste);
-            Kartlar.Add(kart);
+            if (SplitYapiyor)
+            {
+                if (Kartlar.Count == SplitKartlar.Count)
+                {
+                    Kartlar.Add(kart);
+                }
+                SplitKartlar.Add(kart);
+                splitKartMi = true;
+            }
+            else
+            {
+                Kartlar.Add(kart);
+            }
 
             PuanHesapla();
 
@@ -71,7 +88,7 @@ namespace GameCore
                 SplitYapabilir = true;
             }
 
-            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart });
+            KartCekildi?.Invoke(this, new KartCekildiEventArgs { CekilenKart = kart, SplitKartMi = splitKartMi });
         }
 
         public void PuanHesapla()
