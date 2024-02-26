@@ -316,7 +316,7 @@ public partial class MainPage : ContentPage
         var historyRecognizer = new TapGestureRecognizer();
         historyRecognizer.Tapped += (s, e) =>
         {
-            Navigation.PushAsync(new GameHistory());
+            Navigation.PushAsync(new GameHistory(oyun.BitenOyunlar));
         };
 
         historyImage.GestureRecognizers.Add(historyRecognizer);
