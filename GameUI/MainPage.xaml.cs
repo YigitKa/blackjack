@@ -7,7 +7,11 @@ public partial class MainPage : ContentPage
 {
     private readonly IAudioManager audioManager;
 
-    HorizontalStackLayout bilgiPaneliYatay = new HorizontalStackLayout();
+    HorizontalStackLayout bilgiPaneliYatay = new HorizontalStackLayout()
+    {
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.End
+    };
     StackLayout kurpiyerKartlariStackLayout = new StackLayout();
     StackLayout oyuncuKartlariStackLayout = new StackLayout();
 
@@ -21,8 +25,16 @@ public partial class MainPage : ContentPage
         HorizontalOptions = LayoutOptions.Center,
         VerticalOptions = LayoutOptions.Center
     };
-    HorizontalStackLayout kurpiyerKartlarYatay = new HorizontalStackLayout();
-    HorizontalStackLayout bottomBar = new HorizontalStackLayout();
+    HorizontalStackLayout kurpiyerKartlarYatay = new HorizontalStackLayout()
+    {
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.Center
+    };
+    HorizontalStackLayout bottomBar = new HorizontalStackLayout()
+    {
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.End
+    };
 
     // Oyuncu ve Kurpiyer nesneleri oluşturulur.
     Oyuncu oyuncu = new Oyuncu(100);
@@ -239,11 +251,10 @@ public partial class MainPage : ContentPage
         this.audioManager = audioManager;
         LoadSounds();
 
-        // Oyun başlangıcında bahis alınır.
         oyuncu.KartCekildi += Oyuncu_KartCekildi;
         oyuncu.SplitYapildi += Oyuncu_SplitYapildi;
         kurpiyer.KartCekildi += Kurpiyer_KartCekildi;
-        // Oyun oynanır.
+
         var grid = new Grid
         {
             ColumnDefinitions =
@@ -264,8 +275,6 @@ public partial class MainPage : ContentPage
         oyun.OyunBasladi += Oyun_OyunBasladi;
         oyun.OyunBitti += Oyun_OyunBitti;
 
-        bilgiPaneliYatay.HorizontalOptions = LayoutOptions.Center;
-        bilgiPaneliYatay.VerticalOptions = LayoutOptions.End;
 
         VerticalStackLayout kurpiyerPuanView = new VerticalStackLayout() { Margin = 10 };
         kurpiyerPuanView.Add(kurpiyerPuanImage);
@@ -288,8 +297,6 @@ public partial class MainPage : ContentPage
         grid.Add(kurpiyerKartlariStackLayout, 0, 1);
         kurpiyerKartlariStackLayout.Children.Add(new Label { Text = "Kurpiyer Kartları", FontSize = 20, HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center });
         kurpiyerKartlariStackLayout.Children.Add(kurpiyerKartlarYatay);
-        kurpiyerKartlarYatay.HorizontalOptions = LayoutOptions.Center;
-        kurpiyerKartlarYatay.VerticalOptions = LayoutOptions.Center;
 
         // Oyuncu kartları
         grid.Add(oyuncuKartlariStackLayout, 0, 2);
@@ -297,8 +304,6 @@ public partial class MainPage : ContentPage
         oyuncuKartlariStackLayout.Children.Add(oyuncuKartlarYatay);
 
         grid.Add(bottomBar, 0, 3);
-        bottomBar.HorizontalOptions = LayoutOptions.Center;
-        bottomBar.VerticalOptions = LayoutOptions.End;
 
         // Butonlar
         VerticalStackLayout oyunuBaslatView = new VerticalStackLayout() { Margin = 10 };
