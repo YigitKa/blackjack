@@ -164,6 +164,7 @@
 	  <None Remove="Resources\Images\kasa.svg" />
 	  <None Remove="Resources\Images\oyuncu.svg" />
 	  <None Remove="Resources\Images\kurpiyer.svg" />
+	  <None Remove="Resources\Images\history.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\sinek_2.svg" />
@@ -253,6 +254,7 @@
 	  <BundleResource Include="Resources\Images\kasa.svg" />
 	  <BundleResource Include="Resources\Images\oyuncu.svg" />
 	  <BundleResource Include="Resources\Images\kurpiyer.svg" />
+	  <BundleResource Include="Resources\Images\history.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\GameCore\GameCore.csproj" />

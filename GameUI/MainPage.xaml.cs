@@ -63,6 +63,24 @@ public partial class MainPage : ContentPage
         }
     }
 
+    Label historyLabel = new Label
+    {
+        Text = "Geçmiş Oyunlar",
+        WidthRequest = 100,
+        HeightRequest = 50,
+        FontSize = 15,
+        HorizontalTextAlignment = TextAlignment.Center,
+        VerticalTextAlignment = TextAlignment.Center,
+    };
+
+    ImageButton historyImage = new ImageButton
+    {
+        Source = "history.png",
+        WidthRequest = 75,
+        HeightRequest = 50,
+        Margin = -10
+    };
+
     Label kasaLabel = new Label
     {
         Text = "0",
@@ -275,7 +293,6 @@ public partial class MainPage : ContentPage
         oyun.OyunBasladi += Oyun_OyunBasladi;
         oyun.OyunBitti += Oyun_OyunBitti;
 
-
         VerticalStackLayout kurpiyerPuanView = new VerticalStackLayout() { Margin = 10 };
         kurpiyerPuanView.Add(kurpiyerPuanImage);
         kurpiyerPuanView.Add(kurpiyerPuanLabel);
@@ -290,6 +307,20 @@ public partial class MainPage : ContentPage
         kasaView.Add(kasaImage);
         kasaView.Add(kasaLabel);
         bilgiPaneliYatay.Children.Add(kasaView);
+
+        VerticalStackLayout historyView = new VerticalStackLayout() { Margin = 10 };
+        historyView.Add(historyImage);
+        historyView.Add(historyLabel);
+        bilgiPaneliYatay.Children.Add(historyView);
+
+        var historyRecognizer = new TapGestureRecognizer();
+        historyRecognizer.Tapped += (s, e) =>
+        {
+            Navigation.PushAsync(new GameHistory());
+        };
+
+        historyImage.GestureRecognizers.Add(historyRecognizer);
+        historyView.GestureRecognizers.Add(historyRecognizer);
 
         grid.Add(bilgiPaneliYatay, 0, 0);
 
