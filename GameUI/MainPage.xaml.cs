@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
 
     HorizontalStackLayout bilgiPaneliYatay = new HorizontalStackLayout();
     StackLayout kurpiyerKartlariStackLayout = new StackLayout();
-    HorizontalStackLayout oyuncuKartlariStackLayout = new HorizontalStackLayout();
+    StackLayout oyuncuKartlariStackLayout = new StackLayout();
 
     HorizontalStackLayout oyuncuKartlarYatay = new HorizontalStackLayout();
     HorizontalStackLayout oyuncuSplitKartlarYatay = new HorizontalStackLayout();
@@ -420,36 +420,19 @@ public partial class MainPage : ContentPage
 
         foreach (Kart kart in oyuncu.Kartlar)
         {
-            Image image = new Image();
-            image.Source = ImageSource.FromFile($"{kart.ToString().ToLower().Replace(" ", "_")}.png");
-            image.Margin = new Thickness(10);
-            image.HeightRequest = 200;
-            image.HorizontalOptions = LayoutOptions.Center;
-
-            oyuncuKartlarYatay.Children.Add(image);
+            oyuncuKartlarYatay.Children.Add(CardImage(e.Kartlar.ToString()));
         }
 
         foreach (Kart kart in oyuncu.SplitKartlar)
         {
-            Image image = new Image();
-            image.Source = ImageSource.FromFile($"{kart.ToString().ToLower().Replace(" ", "_")}.png");
-            image.Margin = new Thickness(10);
-            image.HeightRequest = 200;
-            image.HorizontalOptions = LayoutOptions.Center;
-
-            oyuncuSplitKartlarYatay.Children.Add(image);
+            oyuncuSplitKartlarYatay.Children.Add(CardImage(e.Kartlar.ToString()));
         }
     }
 
-    private async void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
+    private void Oyun_OyunBitti(object sender, OyunBittiEventArgs e)
     {
-        Image image = new Image();
-        image.Source = ImageSource.FromFile($"{kurpiyer.Kartlar[0].ToString().ToLower().Replace(" ", "_")}.png");
-
-        image.HeightRequest = 200;
-        image.HorizontalOptions = LayoutOptions.Center;
         string playerMessage = string.Empty;
-        kurpiyerKartlarYatay.Children[0] = image;
+        kurpiyerKartlarYatay.Children[0] = CardImage(kurpiyer.Kartlar[0].ToString());
         IAudioPlayer player = null;
         kartCekLabel.IsEnabled = kartCekImage.IsEnabled = durLabel.IsEnabled = durImage.IsEnabled = false;
         oyunuBaslatLabel.IsEnabled = oyunuBaslatImage.IsEnabled = true;
@@ -493,11 +476,7 @@ public partial class MainPage : ContentPage
 
     private void Kurpiyer_KartCekildi(object sender, Kurpiyer.KartCekildiEventArgs e)
     {
-        Image image = new Image();
-        image.HeightRequest = 200;
-        image.HorizontalOptions = LayoutOptions.Center;
-        image.Source = ImageSource.FromFile($"card_back.png");
-        image.Margin = new Thickness(10);
+        Image image = CardImage("card_back");
         if (kurpiyer.Kartlar.Count > 1)
         {
             image.Source = ImageSource.FromFile($"{e.CekilenKart.ToString().ToLower().Replace(" ", "_")}.png");
@@ -508,11 +487,7 @@ public partial class MainPage : ContentPage
 
     private void Oyuncu_KartCekildi(object sender, KartCekildiEventArgs e)
     {
-        Image image = new Image();
-        image.Source = ImageSource.FromFile($"{e.CekilenKart.ToString().ToLower().Replace(" ", "_")}.png");
-        image.Margin = new Thickness(10);
-        image.HeightRequest = 200;
-        image.HorizontalOptions = LayoutOptions.Center;
+        Image image = CardImage(e.CekilenKart.ToString());
 
         if (e.SplitKartMi)
         {
@@ -567,6 +542,17 @@ public partial class MainPage : ContentPage
     private void Oyun_OyunBasladi(object sender, EventArgs e)
     {
 
+    }
+
+    private Image CardImage(string cardName)
+    {
+        Image image = new Image();
+        image.Source = ImageSource.FromFile($"{cardName.ToLower().Replace(" ", "_")}.png");
+        image.Margin = new Thickness(10);
+        image.HeightRequest = 200;
+        image.HorizontalOptions = LayoutOptions.Center;
+
+        return image;
     }
 }
 
