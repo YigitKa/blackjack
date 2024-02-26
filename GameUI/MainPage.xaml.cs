@@ -11,8 +11,16 @@ public partial class MainPage : ContentPage
     StackLayout kurpiyerKartlariStackLayout = new StackLayout();
     StackLayout oyuncuKartlariStackLayout = new StackLayout();
 
-    HorizontalStackLayout oyuncuKartlarYatay = new HorizontalStackLayout();
-    HorizontalStackLayout oyuncuSplitKartlarYatay = new HorizontalStackLayout();
+    HorizontalStackLayout oyuncuKartlarYatay = new HorizontalStackLayout()
+    {
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.Center
+    };
+    HorizontalStackLayout oyuncuSplitKartlarYatay = new HorizontalStackLayout()
+    {
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.Center
+    };
     HorizontalStackLayout kurpiyerKartlarYatay = new HorizontalStackLayout();
     HorizontalStackLayout bottomBar = new HorizontalStackLayout();
 
@@ -227,7 +235,7 @@ public partial class MainPage : ContentPage
     public MainPage(IAudioManager audioManager)
     {
         this.BackgroundImageSource = ImageSource.FromFile("table.jpg");
-        
+
         this.audioManager = audioManager;
         LoadSounds();
 
@@ -274,7 +282,7 @@ public partial class MainPage : ContentPage
         kasaView.Add(kasaLabel);
         bilgiPaneliYatay.Children.Add(kasaView);
 
-        grid.Add(bilgiPaneliYatay,0,0);
+        grid.Add(bilgiPaneliYatay, 0, 0);
 
         // Kurpiyer kartları
         grid.Add(kurpiyerKartlariStackLayout, 0, 1);
@@ -287,8 +295,6 @@ public partial class MainPage : ContentPage
         grid.Add(oyuncuKartlariStackLayout, 0, 2);
         oyuncuKartlariStackLayout.Children.Add(new Label { Text = "Oyuncu Kartları", FontSize = 20, HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center });
         oyuncuKartlariStackLayout.Children.Add(oyuncuKartlarYatay);
-        oyuncuKartlarYatay.HorizontalOptions = LayoutOptions.Center;
-        oyuncuKartlarYatay.VerticalOptions = LayoutOptions.Center;
 
         grid.Add(bottomBar, 0, 3);
         bottomBar.HorizontalOptions = LayoutOptions.Center;
@@ -297,7 +303,7 @@ public partial class MainPage : ContentPage
         // Butonlar
         VerticalStackLayout oyunuBaslatView = new VerticalStackLayout() { Margin = 10 };
         var tapGestureRecognizer = new TapGestureRecognizer();
-        tapGestureRecognizer.Tapped +=  async (s, e) =>
+        tapGestureRecognizer.Tapped += async (s, e) =>
         {
             if (!oyunuBaslatLabel.IsEnabled && !oyunuBaslatImage.IsEnabled)
             {
@@ -405,15 +411,13 @@ public partial class MainPage : ContentPage
         bottomBar.Children.Add(oyunuBaslatView);
         bottomBar.Children.Add(kartCekView);
         bottomBar.Children.Add(durView);
-       // TODO: tepeye taşınacak (ya da menu) bottomBar.Children.Add(sesKontrolView);
+        // TODO: tepeye taşınacak (ya da menu) bottomBar.Children.Add(sesKontrolView);
 
         Content = grid;
     }
 
     private void Oyuncu_SplitYapildi(object sender, SplitYapildiEventArgs e)
     {
-        oyuncuSplitKartlarYatay.HorizontalOptions = LayoutOptions.Center;
-        oyuncuSplitKartlarYatay.VerticalOptions = LayoutOptions.Center;
         oyuncuKartlarYatay.Clear();
 
         oyuncuKartlariStackLayout.Children.Add(oyuncuSplitKartlarYatay);
